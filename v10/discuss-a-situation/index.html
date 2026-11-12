@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request an Opportunity Review | PPG</title>
+<meta name="description" content="Share a short, non-confidential outline of what is underused in your business. No fee for the Review and no obligation to continue.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://preeminentpartnersgroup.com/discuss-a-situation">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Preeminent Partners Group">
+<meta property="og:title" content="Request an Opportunity Review | PPG">
+<meta property="og:description" content="Share a short, non-confidential outline of what is underused in your business. No fee for the Review and no obligation to continue.">
+<meta property="og:url" content="https://preeminentpartnersgroup.com/discuss-a-situation">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0A1B33">
+<link rel="icon" href="/ppg-website-preview/v10/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/ppg-website-preview/v10/assets/fonts/SourceSerif4-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/ppg-website-preview/v10/assets/fonts/InstrumentSans-400-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/ppg-website-preview/v10/assets/fonts/fonts.css">
+<link rel="stylesheet" href="/ppg-website-preview/v10/assets/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+
+<body class="page-discuss">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="masthead" data-masthead>
+  <div class="wrap masthead__bar">
+    <a class="wordmark" href="/ppg-website-preview/v10/">Preeminent Partners Group</a>
+    <nav class="masthead__nav" aria-label="Primary">
+      <ul>
+        <li><a href="/ppg-website-preview/v10/firm">Firm</a></li>
+        <li><a href="/ppg-website-preview/v10/approach">Approach</a></li>
+        <li><a href="/ppg-website-preview/v10/capabilities">Capabilities</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--small masthead__cta" href="/ppg-website-preview/v10/discuss-a-situation" aria-current="page">Request a Review</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>Menu</button>
+  </div>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Menu" hidden>
+    <ul class="wrap">
+      <li><a href="/ppg-website-preview/v10/">Home</a></li>
+      <li><a href="/ppg-website-preview/v10/firm">Firm</a></li>
+      <li><a href="/ppg-website-preview/v10/approach">Approach</a></li>
+      <li><a href="/ppg-website-preview/v10/capabilities">Capabilities</a></li>
+      <li><a href="/ppg-website-preview/v10/discuss-a-situation" aria-current="page">Request a Review</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main" tabindex="-1">
+<!-- Manifest (Discuss / inquiry page, copy v6). ground / motion:
+     hero navy type / - | form + what happens next white / - (forms never move)
+     Form per the copy's specification, fields in its order. State templates (copy "Form states") sit in
+     place, hidden until site.js shows them: missing field and email format under each field, sending in the
+     status line, failure above the submit row, confirmed receipt after the form. The form posts nowhere,
+     so a valid submission always ends at the failure state; confirmed receipt is never shown.
+     Not built: the verification state (copy: only if the real flow requires it; it does not) and the
+     optional thank-you research question (copy: ask only after confirmed receipt). -->
+
+<section class="hero hero--page"aria-labelledby="h-discuss">
+  <div class="wrap grid gap-row">
+    <p class="label c-1-6">Opportunity Review</p>
+    <h1 class="h1 c-1-7" id="h-discuss">What is underused in your business?</h1>
+    <div class="c-7-12 stack">
+      <p class="deck">Describe the situation and the result you would like to achieve. A few non-confidential sentences are enough to begin.</p>
+      <p>Ryan reviews the request. If the situation fits, the next step is a working conversation and a preliminary written assessment of the opportunity, assumptions and recommended next decision.</p>
+      <p class="kicker">No fee for the Review. No obligation to continue.</p>
+      <p>If you are an adviser or a prospective partner, explain your role and the business involved without disclosing confidential information.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap grid intake">
+    <div class="c-1-7 intake__form">
+      <!-- Delivery: no endpoint (hosting decision pending). site.js validates in the browser, shows the
+           sending state, then the failure state: nothing is transmitted or stored. See README. -->
+      <form class="form" data-situation-form novalidate>
+        <div class="field">
+          <label for="f-name">Name <span class="field__req">(required)</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required>
+          <p class="field__error" id="f-name-error" data-error-for="name" data-error-kind="missing" hidden>Please add your name so Ryan can review your request.</p>
+        </div>
+
+        <div class="field">
+          <label for="f-email">Email <span class="field__req">(required)</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" required>
+          <p class="field__error" id="f-email-error-missing" data-error-for="email" data-error-kind="missing" hidden>Please add your email so Ryan can review your request.</p>
+          <p class="field__error" id="f-email-error-format" data-error-for="email" data-error-kind="format" hidden>Enter an email address in the format name@example.com.</p>
+        </div>
+
+        <div class="field">
+          <label for="f-org">Organization <span class="field__req">(required)</span></label>
+          <input id="f-org" name="organization" type="text" autocomplete="organization" required>
+          <p class="field__error" id="f-org-error" data-error-for="organization" data-error-kind="missing" hidden>Please add your organization so Ryan can review your request.</p>
+        </div>
+
+        <div class="field">
+          <label for="f-role">Your role in this situation <span class="field__req">(optional)</span></label>
+          <select id="f-role" name="role">
+            <option value=""></option>
+            <option value="owner">Owner or executive</option>
+            <option value="adviser">Adviser</option>
+            <option value="partner">Potential partner</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="f-situation">Your situation <span class="field__req">(required)</span></label>
+          <p class="field__help" id="f-situation-help">What is underused? What is getting in the way? What would a worthwhile outcome look like?</p>
+          <p class="form__notice" id="f-notice">Please leave out customer lists, contracts, sensitive financial records and other confidential information. Information handling can be agreed before detailed disclosure.</p>
+          <textarea id="f-situation" name="situation" rows="6" required aria-describedby="f-situation-help f-notice"></textarea>
+          <p class="field__error" id="f-situation-error" data-error-for="situation" data-error-kind="missing" hidden>Please add your situation so Ryan can review your request.</p>
+        </div>
+
+        <div class="field">
+          <label for="f-timing">Anything relevant about timing? <span class="field__req">(optional)</span></label>
+          <input id="f-timing" name="timing" type="text">
+        </div>
+
+        <div class="form__outcome" data-failure role="alert" tabindex="-1" hidden>
+          <p>Your request has not been confirmed as received. Please try again. If the problem continues, use the contact method shown on this page.</p>
+        </div>
+
+        <div class="form__submit">
+          <p class="form__status" data-form-status aria-live="polite"><span data-status="sending" hidden>Sending your situation…</span></p>
+          <!-- disabled until site.js runs: without JavaScript the form cannot submit (no GET to this URL) -->
+          <button class="btn" type="submit" data-submit disabled>Send my situation</button>
+          <p class="small muted">No fee for the Review. No obligation to enter an engagement. Read the <a class="inline-link" href="/ppg-website-preview/v10/privacy">Privacy notice</a> for how inquiry information is handled.</p>
+        </div>
+      </form>
+
+      <!-- Confirmed receipt: shown only after a real endpoint confirms acceptance. Never shown in this build. -->
+      <div class="form-success" data-success tabindex="-1" hidden>
+        <h2 class="h2">Your request has been received.</h2>
+        <p class="lead">Ryan will review the situation and reply by email with the next step. There is no obligation to proceed. Please wait to share confidential information until the appropriate arrangements are agreed.</p>
+      </div>
+    </div>
+
+    <aside class="c-8-12 intake__next" aria-labelledby="h-next">
+      <h2 class="h2" id="h-next">What happens next</h2>
+      <div class="prose mt-3">
+        <p>Ryan assesses whether the situation fits PPG’s role. For a suitable situation, you arrange a working conversation. The resulting preliminary assessment identifies the opportunity, a possible buyer or partner profile, key assumptions, information gaps and the recommended next decision.</p>
+        <p>If the situation is not a fit, the reply explains that. Submitting a request does not begin an engagement or authorize outreach in your business’s name.</p>
+      </div>
+    </aside>
+  </div>
+</section>
+</main>
+<footer class="colophon">
+  <div class="wrap colophon__grid">
+    <div class="colophon__sign">
+      <p class="colophon__descriptor">Commercial opportunities from assets, relationships and capabilities you already have.</p>
+      <p class="colophon__founder">Preeminent Partners Group • Founder-led by Ryan Horning</p>
+    </div>
+    <nav class="colophon__nav" aria-label="Footer">
+      <ul>
+        <li><a href="/ppg-website-preview/v10/firm">Firm</a></li>
+        <li><a href="/ppg-website-preview/v10/approach">Approach</a></li>
+        <li><a href="/ppg-website-preview/v10/capabilities">Capabilities</a></li>
+        <li><a href="/ppg-website-preview/v10/discuss-a-situation">Request a Review</a></li>
+        <li><a href="/ppg-website-preview/v10/privacy">Privacy</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script src="/ppg-website-preview/v10/assets/site.js" defer></script>
+</body>
+</html>
