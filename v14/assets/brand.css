@@ -1,0 +1,69 @@
+/* Preeminent Partners Group: the brand layer shared by every page.
+   The PPG logo, the header (clear over each page's dark Chicago photograph, navy once you scroll), and
+   the type: Newsreader for display (a sturdy, readable editorial serif) and Inter for reading. */
+
+:root {
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-text: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display-weight: 500;
+  --display-tracking: -0.012em;
+  --display-tracking-xl: -0.018em;
+  --brand-navy: #0e1a2e;
+  --brand-gold: #c9a978;
+  --brand-gold-2: #e2cfa9;
+  --nav: 84px;
+}
+@media (max-width: 639px) { :root { --nav: 68px; } }
+body { font-family: var(--font-text); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; font-feature-settings: "cv11", "ss01"; }
+
+/* ---------------------------------------------------------------- header */
+.nav { background: transparent; border-bottom: 1px solid transparent; color: #f6f4ef;
+  transition: background-color .45s cubic-bezier(.16,1,.3,1), border-color .45s, box-shadow .45s, backdrop-filter .45s; }
+.nav.is-solid, .nav.is-open { background: rgba(14,26,46,.94); border-bottom-color: rgba(201,169,120,.22); box-shadow: 0 10px 30px -18px rgba(0,0,0,.6); -webkit-backdrop-filter: saturate(1.2) blur(10px); backdrop-filter: saturate(1.2) blur(10px); }
+.nav::before { content: ""; position: absolute; inset: 0 0 -40px; z-index: -1; pointer-events: none; background: linear-gradient(180deg, rgba(8,15,28,.55), transparent); transition: opacity .45s; }
+.nav.is-solid::before { opacity: 0; }
+.nav .nav__logo { display: inline-flex; align-items: center; gap: 0; }
+.nav .nav__logo img, .footer .nav__logo img { display: block; height: 54px; width: auto; }
+@media (max-width: 1023px) { .nav .nav__logo img { height: 40px; } }
+@media (max-width: 639px) { .nav .nav__logo img { height: 34px; } }
+.nav .nav__link { color: rgba(246,244,239,.86); font: 600 12.5px/1 var(--font-text); letter-spacing: .14em; text-transform: uppercase; position: relative; }
+.nav .nav__link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 1px; background: var(--brand-gold); transform: scaleX(0); transform-origin: left; transition: transform .45s cubic-bezier(.16,1,.3,1); }
+.nav .nav__link:hover { color: #fff; }
+.nav .nav__link:hover::after { transform: scaleX(1); }
+.nav .nav__actions .btn { background: var(--brand-gold); color: var(--brand-navy); border: 1px solid var(--brand-gold); border-radius: 0; height: 46px; padding: 0 22px;
+  font: 600 12.5px/1 var(--font-text); letter-spacing: .14em; text-transform: uppercase; transition: background .35s, color .35s; }
+.nav .nav__actions .btn:hover { background: var(--brand-gold-2); border-color: var(--brand-gold-2); color: var(--brand-navy); }
+.nav .nav__toggle { color: #f6f4ef; border-color: rgba(246,244,239,.35); background: transparent; }
+.nav .nav__links { color: #f6f4ef; }
+@media (max-width: 1023px) {
+  .nav.is-open .nav__links { background: var(--brand-navy); }
+  .nav.is-open .nav__link { color: #f6f4ef; }
+}
+.skip-link { color: var(--brand-navy); }
+
+/* the phone's action bar in the brand's gold */
+.actionbar .btn--primary { background: var(--brand-gold); color: var(--brand-navy); border-color: var(--brand-gold); font-weight: 700; letter-spacing: .04em; }
+
+/* ---------------------------------------------------------------- footer logo */
+.footer .nav__logo img { height: 52px; }
+
+footer.closing .btn--primary { background: var(--brand-gold); border-color: var(--brand-gold); color: var(--brand-navy); font-weight: 700; }
+
+/* ---------------------------------------------------------------- footer */
+footer.y-footer { background: #07111f; color: #d6dae1; padding: clamp(72px, 7vw, 104px) 0 36px; height: auto !important; min-height: 0 !important; display: block !important; }
+footer.y-footer > .wrap { display: grid !important; gap: 48px; height: auto !important; }
+.y-footer__top { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 5fr) minmax(0, 3fr); gap: clamp(32px, 4vw, 64px); align-items: start; }
+.y-footer__brand { display: grid; gap: 22px; }
+.y-footer .nav__logo img { height: 58px !important; }
+.y-footer__tag { margin: 0; font: 600 13px/1.5 var(--font-text); letter-spacing: .06em; color: var(--brand-gold, #c9a978); }
+.y-footer__about { margin: 0; font: 400 clamp(18px, .4vw + 16px, 21px)/1.55 var(--font-display, serif); color: #e6e9ee; }
+.y-footer__nav { display: grid; gap: 12px; }
+.y-footer__nav a { color: #d6dae1; text-decoration: none; font: 600 12.5px/1.4 var(--font-text); letter-spacing: .14em; text-transform: uppercase; width: fit-content; }
+.y-footer__nav a:hover { color: var(--brand-gold, #c9a978); }
+.y-footer__legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-top: 22px; border-top: 1px solid rgba(201,169,120,.22); font-size: 13.5px; color: #a3acb8; }
+.y-footer__legal a { color: #c9d0d8; }
+@media (max-width: 1023px) { .y-footer__top { grid-template-columns: 1fr; } }
+
+
+footer.y-footer :focus-visible { outline: 2px solid #e2cfa9; outline-offset: 4px; }
+.y-footer__nav a { min-height: 28px; display: inline-flex; align-items: center; }

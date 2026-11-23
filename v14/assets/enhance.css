@@ -1,0 +1,385 @@
+/* PPG v14 enhancement layer (2026-11-23). Linked last on every page, so it refines the five existing
+   stylesheets without rewriting them. Layout, scale, image treatment, detail and motion only: no copy
+   lives here (every pseudo-element is content: ""). The few !important flags override !important
+   rules already in home7.css / subpages.css; nothing new is forced. Scroll reveal is driven by
+   enhance.js and fails open (content is hidden only under html.ex-rv, which the script sets). */
+
+:root { --ex-ease: cubic-bezier(.16, 1, .3, 1); --ex-brass: #a8865a; --ex-brass-l: #c9a978; --ex-navy: #14243e; --ex-navy-ink: #0e1a2e; --ex-hair: #ddd5c6; }
+
+/* ================================================================ detail layer, every page */
+html { scroll-padding-top: calc(var(--nav, 84px) + 16px); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+::selection { background: #e2cfa9; color: var(--ex-navy); }
+:focus-visible { outline: 2px solid var(--ex-brass); outline-offset: 3px; }
+.nav.is-solid { border-bottom-color: rgba(201,169,120,.34); }
+
+/* footer: a brass hairline that fades out across the top edge */
+footer.y-footer { position: relative; }
+footer.y-footer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px;
+  background: linear-gradient(90deg, var(--ex-brass) 0%, var(--ex-brass-l) 35%, rgba(201,169,120,0) 100%); }
+.y-footer__nav a { transition: color .35s var(--ex-ease), transform .35s var(--ex-ease); }
+@media (hover: hover) { .y-footer__nav a:hover { transform: translateX(3px); } }
+
+/* quiet link hovers in running text */
+.sub a.inline-link, .sub .prose a { transition: text-decoration-color .35s var(--ex-ease); }
+.sub a.inline-link:hover, .sub .prose a:hover { text-decoration-color: var(--ex-brass); }
+
+/* ================================================================ scroll reveal (enhance.js) */
+html.ex-rv .ex-r { transition: opacity .7s var(--ex-ease), transform .8s var(--ex-ease); transition-delay: calc(var(--ex-d, 0) * 70ms); }
+html.ex-rv .ex-r:not(.ex-in) { opacity: 0; transform: translateY(14px); }
+@media (prefers-reduced-motion: reduce) { html.ex-rv .ex-r { opacity: 1; transform: none; transition: none; } }
+@media print { html.ex-rv .ex-r { opacity: 1 !important; transform: none !important; } }
+
+/* ================================================================ inner pages: the opening photograph */
+.sub main > section.hero.hero--page.has-photo { min-height: clamp(560px, 84vh, 880px) !important; border-bottom: 1px solid rgba(201,169,120,.45); }
+.sub .hero--page.has-photo > .sub-hero__bg img { filter: saturate(.78) sepia(.16) contrast(1.06); }
+/* the scrim: dark where the type sits (left and foot), lighter over the city so the photograph reads */
+.sub .hero--page.has-photo::after {
+  background:
+    radial-gradient(90% 70% at 88% 18%, rgba(201,169,120,.16) 0%, rgba(201,169,120,0) 60%),
+    linear-gradient(90deg, rgba(10,18,32,.9) 0%, rgba(10,18,32,.66) 45%, rgba(10,18,32,.32) 100%),
+    linear-gradient(180deg, rgba(10,18,32,.4) 0%, rgba(10,18,32,0) 32%, rgba(10,18,32,.86) 100%);
+}
+@media (max-width: 1023px) {
+  .sub .hero--page.has-photo::after { background: linear-gradient(180deg, rgba(10,18,32,.55) 0%, rgba(10,18,32,.7) 40%, rgba(10,18,32,.93) 100%); }
+}
+.sub .hero--page.has-photo :is(.h1, h1) { font-size: clamp(42px, 4.2vw + 14px, 96px); line-height: 1.01; letter-spacing: -0.024em; text-shadow: 0 2px 28px rgba(0,0,0,.35); }
+.sub .hero--page.has-photo .deck { font-size: clamp(18px, .35vw + 15px, 21px); line-height: 1.55; text-shadow: 0 1px 12px rgba(5,10,20,.5); }
+.sub .hero--page.has-photo .jump { border-top-color: rgba(201,169,120,.35); }
+.sub .hero--page.has-photo .jump a { color: #f6f4ef; text-decoration-color: rgba(201,169,120,.6); transition: text-decoration-color .35s var(--ex-ease), color .35s; }
+.sub .hero--page.has-photo .jump a:hover { color: #e2cfa9; text-decoration-color: #e2cfa9; }
+
+/* ================================================================ inner pages: rhythm and type */
+.sub main .band { padding: clamp(64px, 6.5vw, 104px) 0; }
+.sub .band :is(.h2, .h1) { position: relative; }
+.sub .band .h2 { font-size: clamp(32px, 2.3vw + 18px, 58px); line-height: 1.05; letter-spacing: -0.02em; }
+.sub .band .h1 { line-height: 1.02; letter-spacing: -0.024em; padding-top: 26px; border-top: 1px solid var(--ex-hair); }
+/* a short brass bar on each section rule: the chapter marker */
+.sub .band :is(.h2, .h1)::before { content: ""; position: absolute; left: 0; top: -1px; width: 56px; height: 3px; background: var(--ex-brass); }
+.sub .band .prose > .lead, .sub .band .stack > .lead { font-family: var(--font-display); font-size: clamp(21px, .55vw + 16px, 26px); line-height: 1.45; letter-spacing: -0.005em; color: var(--ex-navy); }
+.sub .prose p, .sub .prose li { max-width: 34em; }
+.sub .statement { font-size: clamp(24px, .9vw + 17px, 32px); line-height: 1.3; }
+@media (min-width: 1024px) {
+  /* section heads hold their place while the column beside them is read */
+  .sub .band .grid > .h2.c-1-5, .sub .band .grid > .h1.c-1-5, .sub .band .grid > .c-1-5:has(> .h2) { position: sticky; top: calc(var(--nav, 84px) + 32px); align-self: start; }
+}
+
+/* drop caps where a section opens with a long lead */
+:is(.sub .band[aria-labelledby="h-agreement"], .sub .band#alignment, .sub .band[aria-labelledby="h-choose"]) .prose > .lead:first-child::first-letter {
+  float: left; font: 500 3.35em/.84 var(--font-display); margin: .07em .09em 0 -.02em; color: var(--ex-brass);
+}
+
+/* ================================================================ inner pages: dark bands */
+/* Firm: "Your interests belong in the decision" becomes the page's statement moment */
+.sub .band[aria-labelledby="h-interests"] { background: var(--ex-navy); color: #f6f4ef; }
+.sub .band[aria-labelledby="h-interests"] .h1 { color: #f6f4ef; border-top-color: rgba(201,169,120,.3); }
+.sub .band[aria-labelledby="h-interests"] .lead { color: #dfe3e9; }
+.sub .band[aria-labelledby="h-interests"] .statement { color: #e2cfa9; padding-left: clamp(20px, 2.4vw, 36px); border-left: 2px solid var(--ex-brass-l); }
+
+/* the closing band of Firm, Approach, Capabilities and Insights sits over the page's own photograph
+   (the same file the hero already loaded, so no extra download) */
+:is(.sub main:has(#h-firm), .sub main:has(#h-approach), .sub main:has(#h-capabilities)) .band[aria-labelledby="h-close"],
+.sub main:has(#insights-h) .band[aria-labelledby="insights-cta"] {
+  position: relative; color: #f6f4ef; background-color: var(--ex-navy-ink); background-size: cover; background-repeat: no-repeat; isolation: isolate;
+  padding: clamp(88px, 9vw, 148px) 0;
+}
+:is(.sub main:has(#h-firm), .sub main:has(#h-approach), .sub main:has(#h-capabilities)) .band[aria-labelledby="h-close"] :is(.h1, .h2),
+.sub main:has(#insights-h) .band[aria-labelledby="insights-cta"] :is(.h1, .h2) { color: #f6f4ef; border-top-color: rgba(201,169,120,.32); }
+:is(.sub main:has(#h-firm), .sub main:has(#h-approach), .sub main:has(#h-capabilities)) .band[aria-labelledby="h-close"] .lead,
+.sub main:has(#insights-h) .band[aria-labelledby="insights-cta"] .lead { color: #e3e6eb; font-family: var(--font-display); font-size: clamp(21px, .55vw + 16px, 26px); line-height: 1.45; }
+:is(.sub main:has(#h-firm), .sub main:has(#h-approach), .sub main:has(#h-capabilities)) .band[aria-labelledby="h-close"] :is(.small, .muted) { color: #c3cad3; }
+:is(.sub main:has(#h-firm), .sub main:has(#h-approach), .sub main:has(#h-capabilities)) .band[aria-labelledby="h-close"] a.btn:not(.btn--primary):not(.btn--secondary),
+.sub main:has(#insights-h) .band[aria-labelledby="insights-cta"] a.btn:not(.btn--primary):not(.btn--secondary) {
+  background: var(--ex-brass-l); border-color: var(--ex-brass-l); color: var(--ex-navy); font-weight: 700; transition: background-color .35s var(--ex-ease), border-color .35s;
+}
+:is(.sub main:has(#h-firm), .sub main:has(#h-approach), .sub main:has(#h-capabilities)) .band[aria-labelledby="h-close"] a.btn:not(.btn--primary):not(.btn--secondary):hover,
+.sub main:has(#insights-h) .band[aria-labelledby="insights-cta"] a.btn:not(.btn--primary):not(.btn--secondary):hover { background: #e2cfa9; border-color: #e2cfa9; }
+.sub main:has(#h-firm) .band[aria-labelledby="h-close"] { background-image: linear-gradient(90deg, rgba(10,18,32,.94) 0%, rgba(10,18,32,.84) 52%, rgba(10,18,32,.6) 100%), url("img/ch-f128700709-1400.jpg"); background-position: center, 50% 62%; }
+.sub main:has(#h-approach) .band[aria-labelledby="h-close"] { background-image: linear-gradient(90deg, rgba(10,18,32,.94) 0%, rgba(10,18,32,.84) 52%, rgba(10,18,32,.6) 100%), url("img/ch-f3084539-1600.jpg"); background-position: center, 50% 70%; }
+.sub main:has(#h-capabilities) .band[aria-labelledby="h-close"] { background-image: linear-gradient(90deg, rgba(10,18,32,.94) 0%, rgba(10,18,32,.84) 52%, rgba(10,18,32,.6) 100%), url("img/ch-f113155508-1600.jpg"); background-position: center, 50% 80%; }
+.sub main:has(#insights-h) .band[aria-labelledby="insights-cta"] { background-image: linear-gradient(90deg, rgba(10,18,32,.94) 0%, rgba(10,18,32,.84) 52%, rgba(10,18,32,.6) 100%), url("img/photo-f191708175-1600.jpg"); background-position: center, 50% 70%; }
+
+/* ================================================================ Firm: the specimen as a letterhead document */
+.sub .specimen { box-shadow: none; border: 1px solid var(--ex-hair); border-top: 3px solid var(--ex-brass); outline: 1px solid var(--ex-hair); outline-offset: 7px;
+  background: #fbfaf6; max-width: 1040px; margin-inline: auto; padding: clamp(28px, 4vw, 64px); }
+.sub .specimen__status { letter-spacing: .02em; padding-bottom: 14px; border-bottom: 1px solid var(--ex-hair); }
+.sub .specimen .h2 { border-top: 0; padding-top: 0; }
+.sub .specimen .h2::before { display: none; }
+.sub .specimen__rows dt { font: 600 12px/1.55 var(--font-text); letter-spacing: .14em; text-transform: uppercase; color: #7a5c34; padding-top: .3em; }
+.sub .specimen__rows dd { line-height: 1.6; max-width: 40em; }
+
+/* ================================================================ Approach: ledger, responsibilities, questions */
+.sub .ledger > article { transition: background-color .5s var(--ex-ease); }
+.sub .ledger > article > h3 { position: relative; padding-top: 18px; }
+.sub .ledger > article > h3::before { content: ""; position: absolute; left: 0; top: 0; width: 28px; height: 2px; background: var(--ex-brass); transition: width .6s var(--ex-ease); }
+@media (hover: hover) { .sub .ledger > article:hover > h3::before { width: 64px; } }
+@media (min-width: 1024px) {
+  .sub .ledger > article > h3 { position: sticky; top: calc(var(--nav, 84px) + 28px); align-self: start; }
+  .sub .ledger > article { padding: var(--s-6, 32px) 0 var(--s-7, 48px); }
+}
+
+/* the four responsibilities: ruled blocks, no shadows, the right column set lower */
+.sub .split--2 > div { box-shadow: none; background: transparent; padding: 22px 0 0; border-top: 2px solid var(--ex-navy); }
+.sub .split--2 > div:nth-child(odd) { border-top-color: var(--ex-brass); }
+.sub .split--2 > div h3 { font: 500 clamp(24px, .8vw + 17px, 32px)/1.15 var(--font-display); letter-spacing: -0.012em; color: var(--ex-navy); }
+.sub .split--2 > div p { font-size: 17px; line-height: 1.65; max-width: 34em; }
+@media (min-width: 640px) { .sub .split--2 { column-gap: clamp(32px, 5vw, 88px); } .sub .split--2 > div:nth-child(even) { margin-top: clamp(32px, 4vw, 64px); } }
+
+/* questions: two ruled columns instead of one long stack */
+.sub .qa { gap: 0 clamp(32px, 5vw, 80px); }
+.sub .qa > div { display: grid; gap: 8px; align-content: start; padding: 26px 0; border-top: 1px solid var(--ex-hair); }
+.sub .qa > div h3 { font: 500 clamp(20px, .4vw + 16px, 23px)/1.3 var(--font-display); color: var(--ex-navy); }
+.sub .qa > div p { margin: 0; line-height: 1.65; max-width: 34em; }
+@media (min-width: 1024px) { .sub .qa { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ================================================================ Capabilities: examples as ruled notes */
+.sub .band .example, .sub .band:nth-of-type(odd) .example { background: transparent; padding: 14px 0 0 18px; border-top: 0; border-left: 2px solid var(--ex-brass); }
+.sub .checks dt { font: 600 12px/1.5 var(--font-text); letter-spacing: .14em; text-transform: uppercase; color: #7a5c34; }
+
+/* ================================================================ Discuss: the form as a letterhead sheet */
+.sub .intake__form form { box-shadow: none; border: 1px solid var(--ex-hair); border-top: 3px solid var(--ex-brass); outline: 1px solid var(--ex-hair); outline-offset: 7px; }
+.sub .form-success { box-shadow: none; border: 1px solid var(--ex-hair); border-top: 3px solid var(--ex-brass); }
+.sub .intake__form .field :is(input, select, textarea) { transition: border-color .3s var(--ex-ease), box-shadow .3s var(--ex-ease); }
+.sub .intake__form .field :is(input, select, textarea):focus { border-color: var(--ex-brass); }
+@media (min-width: 1024px) {
+  .sub .intake__next { position: sticky; top: calc(var(--nav, 84px) + 32px); align-self: start; padding-left: clamp(0px, 2vw, 32px); border-left: 1px solid var(--ex-hair); }
+}
+
+/* ================================================================ Privacy: hanging section heads */
+.sub main:has(#h-privacy) .band .prose .h2 { font-size: clamp(24px, .8vw + 17px, 30px); line-height: 1.15; margin-top: 28px; }
+@media (min-width: 1024px) {
+  .sub main:has(#h-privacy) .band .prose { grid-template-columns: minmax(0, 15em) minmax(0, 36em); column-gap: clamp(40px, 5vw, 96px); row-gap: 16px; }
+  .sub main:has(#h-privacy) .band .prose > * { grid-column: 2; }
+  .sub main:has(#h-privacy) .band .prose > .lead { grid-column: 1 / -1; max-width: 32em; }
+  .sub main:has(#h-privacy) .band .prose > .h2 { grid-column: 1; margin-top: 36px; }
+  .sub main:has(#h-privacy) .band .prose > .h2 + p { margin-top: calc(36px + 26px); }
+}
+
+/* ================================================================ Credits: a ruled list */
+.sub main:has(#credits-h) .band .prose ul { list-style: none; margin: 0; padding: 0; display: grid; }
+.sub main:has(#credits-h) .band .prose li { padding: 16px 0 16px 28px; border-top: 1px solid var(--ex-hair); position: relative; line-height: 1.6; }
+.sub main:has(#credits-h) .band .prose li::before { content: ""; position: absolute; left: 2px; top: 1.45em; width: 12px; height: 1px; background: var(--ex-brass); }
+.sub main:has(#credits-h) .band .prose li:last-child { border-bottom: 1px solid var(--ex-hair); }
+
+/* ================================================================ homepage */
+html.home { --sec-pad: clamp(72px, 7vw, 116px); }
+.home .y-head { margin-bottom: clamp(36px, 4vw, 60px); }
+
+/* hero: a larger, tighter display line; the gold phrase as solid gold, not gradient text */
+.home .x-cover__h { font-size: clamp(42px, 3.4vw + 16px, 86px); line-height: 1.01; letter-spacing: -0.024em; }
+.home .x-cover__h em { background: none; -webkit-text-fill-color: currentColor; color: #d8bb88; }
+.home .x-cover__plate { will-change: transform, translate; }
+
+/* section 02: the pull quote as a scale moment, with a drawn (not typed) quotation mark */
+.home .y-pull { position: relative; max-width: none; margin-top: clamp(48px, 6vw, 88px); padding: clamp(28px, 3vw, 44px) 0 clamp(28px, 3vw, 44px) clamp(36px, 6vw, 104px); border-left-width: 3px; }
+.home .y-pull::before { content: ""; position: absolute; left: clamp(10px, 1.6vw, 28px); top: clamp(26px, 2.8vw, 40px); width: clamp(18px, 2.6vw, 40px); aspect-ratio: 40 / 32; opacity: .55;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 32'%3E%3Cpath fill='%23a8865a' d='M0 32V18C0 8 6 2 16 0l2 4c-6 2-9 6-9 11h8v17zm22 0V18c0-10 6-16 16-18l2 4c-6 2-9 6-9 11h8v17z'/%3E%3C/svg%3E") no-repeat center / contain; }
+.home .y-pull p:first-child { font-size: clamp(25px, 1.5vw + 15px, 40px); line-height: 1.25; letter-spacing: -0.012em; max-width: 24em; }
+.home .y-pull p + p { font-size: clamp(19px, .45vw + 15px, 23px); color: var(--ink-2); max-width: 34em; }
+
+/* cards: no hover shadow; a quiet lift and a brass edge instead */
+.home :is(.y-card, .y-mech):hover { box-shadow: none; transform: translateY(-2px); border-color: #cfc3ad; }
+.home .y-card { border-top-width: 2px; }
+.home .y-card--ppg:hover { border-color: var(--navy); }
+@media (min-width: 1024px) {
+  /* break the three-equal-columns row: widths vary and each card steps down from the last */
+  .home .y-cards--3:not(.y-compare) { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr) minmax(0, 1fr); align-items: start; column-gap: clamp(18px, 2vw, 32px); }
+  .home .y-cards--3:not(.y-compare) > :nth-child(2) { margin-top: 40px; }
+  .home .y-cards--3:not(.y-compare) > :nth-child(3) { margin-top: 80px; }
+  /* the comparison: PPG's card is wider and stands taller than the two alternatives */
+  .home .y-compare { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.25fr); align-items: start; }
+  .home .y-compare > :not(.y-card--ppg) { margin-top: 36px; }
+}
+
+/* the illustrative case: the photograph grows and bleeds to the left edge */
+.home .y-case__media img { filter: saturate(.82) sepia(.1) contrast(1.04); transition: transform 1.4s var(--ex-ease); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .home .y-case:hover .y-case__media img { transform: scale(1.03); } }
+@media (min-width: 1024px) {
+  .home .y-case { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); margin-top: clamp(64px, 7vw, 104px); }
+  .home .y-case__media { margin-left: calc(-1 * var(--gut, 48px)); }
+  .home .y-case__media picture { aspect-ratio: 16 / 11; box-shadow: none; }
+  .home .y-case__diagram { left: calc(var(--gut, 48px) + 6%); }
+}
+
+/* section 05: the Chicago photograph behind the process at real strength; the phase panels go solid
+   so the small type keeps its contrast */
+.home .x-sec--photo .x-sec__bg img { opacity: .42; filter: grayscale(.55) sepia(.22) contrast(1.06); }
+.home .x-sec--photo::after { background: linear-gradient(180deg, var(--navy) 0%, rgba(20,36,62,.62) 24%, rgba(20,36,62,.74) 62%, var(--navy) 100%); }
+.home .y-phase { background: rgba(14,26,46,.82); }
+
+/* founder: a larger portrait, offset frame kept */
+@media (min-width: 1024px) { .home main > section > .wrap.y-founder { grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); } }
+.home .y-founder__photo img { transition: transform 1.4s var(--ex-ease); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .home .y-founder__photo:hover img { transform: scale(1.02); } }
+
+/* ================================================================ sections shared into inner pages */
+/* Insights: larger diagrams, alternating sides, flat panels */
+.home .y-patterns { gap: clamp(48px, 5vw, 80px); }
+.home .y-pattern__art { box-shadow: none; border: 1px solid var(--ex-hair); border-top: 3px solid var(--ex-brass); }
+@media (min-width: 1024px) {
+  .home .y-pattern { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .home .y-pattern:nth-child(even) { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .home .y-pattern:nth-child(odd) .y-pattern__art { margin-left: calc(-.5 * var(--gut, 48px)); }
+  .home .y-pattern:nth-child(even) .y-pattern__art { margin-right: calc(-.5 * var(--gut, 48px)); }
+}
+.sub .x-embed .x-sec { padding: clamp(64px, 6.5vw, 108px) 0; }
+
+/* ================================================================ reduced motion: nothing drifts */
+@media (prefers-reduced-motion: reduce) {
+  .sub .hero--page.has-photo > .sub-hero__bg img { translate: none !important; }
+  .home .x-cover__plate { translate: none !important; }
+  .home :is(.y-card, .y-mech):hover { transform: none; }
+}
+
+/* ################################################################################################
+   PASS 2 (2026-11-23): transform, don't polish. Same rules as above: no copy, content: "" only.
+   Every motion here is transform/scale/translate/opacity and is switched off under reduced motion
+   (block at the end of this section).
+   ################################################################################################ */
+
+/* ================================================================ home hero: cinematic plate */
+/* a navy grade over the whole frame plus the existing left scrim, so the city reads as night film,
+   not as a photo behind text. The headline column stays as dark as before (.70+ at the type). */
+.home .x-cover::before {
+  background:
+    radial-gradient(120% 90% at 78% 42%, rgba(8,15,28,0) 0%, rgba(8,15,28,.38) 100%),
+    linear-gradient(90deg, rgba(8,15,28,.80) 0%, rgba(8,15,28,.64) 34%, rgba(8,15,28,.30) 52%, rgba(8,15,28,.10) 70%, rgba(8,15,28,.18) 100%),
+    linear-gradient(180deg, rgba(8,15,28,.55) 0%, rgba(8,15,28,0) 24%, rgba(8,15,28,0) 70%, rgba(8,15,28,.72) 100%);
+}
+@media (max-width: 1023px) { .home .x-cover::before { background: linear-gradient(180deg, rgba(8,15,28,.80) 0%, rgba(8,15,28,.70) 45%, rgba(8,15,28,.90) 100%); } }
+.home .x-cover__img { filter: saturate(.86) contrast(1.08) brightness(.92); }
+/* the still's motion (and the fallback when there is no video): a slow Ken Burns drift on the photo
+   itself; the plate keeps its own transform (home7.css) and its parallax translate (enhance.js) */
+@keyframes ex-kenburns { from { scale: 1; } to { scale: 1.085; } }
+.home .x-cover__img { transform-origin: 70% 55%; animation: ex-kenburns 32s cubic-bezier(.45,0,.55,1) infinite alternate; }
+/* the hero plate must never widen the page (pass 2 QA: 2px overflow at 390; clip, not hidden, so sticky stays intact) */
+.home main > section.x-cover { overflow: clip; }
+html, body { overflow-x: clip; }
+/* the video, when enhance.js mounts one (section[data-ex-video]); it fades in over the still once it plays */
+.home .x-cover__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.6s var(--ex-ease); filter: saturate(.86) contrast(1.06) brightness(.9); }
+.home .x-cover__video.is-playing { opacity: 1; }
+.home .x-cover.has-video :is(.x-cover__clouds, .x-cover__glints, .x-cover__water) { display: none; }
+.home .x-cover.has-video .x-cover__img { animation: none; }
+/* a hairline scroll cue at the foot of the hero (decorative, drawn) */
+.home .x-cover::after { content: ""; position: absolute; left: 50%; bottom: 28px; width: 1px; height: 56px; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(201,169,120,0) 0%, rgba(201,169,120,.9) 100%); transform-origin: top; animation: ex-cue 2.8s var(--ex-ease) infinite; }
+@keyframes ex-cue { 0% { scale: 1 0; opacity: 0; } 30% { opacity: 1; } 70% { scale: 1 1; opacity: 1; } 100% { scale: 1 1; opacity: 0; } }
+@media (max-width: 639px) { .home .x-cover::after { display: none; } }
+
+/* ================================================================ inner heroes at cinematic scale */
+.sub main > section.hero.hero--page.has-photo { min-height: clamp(640px, 96svh, 1040px) !important; display: flex !important; align-items: flex-end; padding-bottom: clamp(56px, 8vh, 104px) !important; }
+.sub main > section.hero.hero--page.has-photo > .wrap { width: min(100% - 2 * var(--gut, 24px), 1280px); }
+/* the photograph does more of the work: lighter in the upper right, navy at the type */
+.sub .hero--page.has-photo > .sub-hero__bg img { filter: saturate(.84) sepia(.12) contrast(1.1) brightness(.96); }
+.sub .hero--page.has-photo::after {
+  background:
+    radial-gradient(70% 60% at 82% 22%, rgba(201,169,120,.14) 0%, rgba(201,169,120,0) 62%),
+    linear-gradient(90deg, rgba(10,18,32,.86) 0%, rgba(10,18,32,.6) 42%, rgba(10,18,32,.16) 78%, rgba(10,18,32,.1) 100%),
+    linear-gradient(180deg, rgba(10,18,32,.5) 0%, rgba(10,18,32,0) 26%, rgba(10,18,32,.25) 55%, rgba(10,18,32,.92) 100%);
+}
+@media (max-width: 1023px) {
+  .sub main > section.hero.hero--page.has-photo { min-height: clamp(560px, 88svh, 860px) !important; }
+  .sub .hero--page.has-photo::after { background: linear-gradient(180deg, rgba(10,18,32,.5) 0%, rgba(10,18,32,.55) 35%, rgba(10,18,32,.9) 70%, rgba(10,18,32,.96) 100%); }
+}
+/* after the settle, a very slow drift keeps the photograph alive (scale composes with the settle transform) */
+@keyframes ex-drift { from { scale: 1; } to { scale: 1.06; } }
+.sub .hero--page.has-photo > .sub-hero__bg { overflow: hidden; }
+.sub .hero--page.has-photo > .sub-hero__bg img { transform-origin: 60% 45%; animation: sub-settle 2.4s cubic-bezier(.16,1,.3,1) forwards, ex-drift 38s 2.4s cubic-bezier(.45,0,.55,1) infinite alternate; }
+.sub .hero--page.has-photo :is(.h1, h1) { font-size: clamp(44px, 4.6vw + 12px, 104px); line-height: .99; }
+.sub .hero--page.has-photo .label { font-size: 12px; letter-spacing: .24em; }
+.sub .hero--page.has-photo .label::before { width: 56px; }
+
+/* ================================================================ photo bands (decorative <figure class="ex-band">) */
+.ex-band { position: relative; margin: 0; height: clamp(300px, 46vw, 640px); overflow: hidden; background: #0b1424; isolation: isolate; }
+.ex-band--tall { height: clamp(340px, 58vw, 820px); }
+.ex-band picture { position: absolute; inset: -12% 0; display: block; }
+.ex-band__img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.8) sepia(.14) contrast(1.08) brightness(.9); will-change: transform; }
+/* navy grade with a warm lift at the centre, rules top and bottom so the band reads as a designed break */
+.ex-band::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(80% 70% at 50% 50%, rgba(201,169,120,.10) 0%, rgba(201,169,120,0) 70%),
+    linear-gradient(180deg, rgba(11,20,36,.55) 0%, rgba(11,20,36,.12) 30%, rgba(11,20,36,.12) 70%, rgba(11,20,36,.6) 100%); }
+.ex-band::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; z-index: 1; background: linear-gradient(90deg, var(--ex-brass) 0%, var(--ex-brass-l) 40%, rgba(201,169,120,0) 100%); }
+@media (max-width: 639px) { .ex-band { height: 300px; } .ex-band--tall { height: 380px; } .ex-band picture { inset: 0; } }
+
+/* ================================================================ section openings: rule + label + scale shift */
+/* home: the section head becomes a chapter opening — a full-width rule with a brass lead-in, the label
+   hung on it, and the display heading at a clearly larger step */
+.home .y-head { position: relative; padding-top: clamp(28px, 3vw, 44px); border-top-color: var(--ex-hair); }
+.home .y-head::before { content: ""; position: absolute; left: 0; top: -1px; width: clamp(72px, 9vw, 140px); height: 3px; background: var(--ex-brass); }
+.home .y-head--inv::before { background: var(--ex-brass-l); }
+.home .y-head .x-h2 { font-size: clamp(38px, 2.8vw + 14px, 72px); line-height: 1.02; letter-spacing: -0.024em; max-width: 16ch; }
+.home .y-head .y-head__line { font-family: var(--font-display); font-size: clamp(20px, .7vw + 15px, 27px); line-height: 1.4; }
+.home .x-eyebrow { letter-spacing: .24em; }
+/* inner pages: larger section display */
+.sub .band .h2 { font-size: clamp(34px, 2.8vw + 16px, 68px); }
+.sub .band .h1 { font-size: clamp(38px, 3.4vw + 14px, 84px); }
+
+/* drop caps where a long passage opens */
+.home :is(#problem, #mandate) .y-prose > p:first-child::first-letter,
+.home .y-case__copy > p:not([class])::first-letter {
+  float: left; font: 500 3.6em/.82 var(--font-display); margin: .08em .1em 0 -.02em; color: var(--ex-brass);
+}
+.home .y-case__copy > p:not([class]) ~ p:not([class])::first-letter { float: none; font: inherit; margin: 0; color: inherit; }
+
+/* ================================================================ oversized pull-quote moments (existing text) */
+/* home, "The hard part starts after the idea": its closing line becomes a full-width display quote */
+.home .y-idea .y-quote { margin-top: clamp(32px, 4vw, 56px) !important; padding: clamp(28px, 3vw, 44px) 0 0 !important; border-top: 0;
+  position: relative; font: italic 500 clamp(26px, 1.3vw + 15px, 40px)/1.24 var(--font-display) !important; letter-spacing: -0.012em; max-width: 22em; }
+.home .y-idea .y-quote::before { content: ""; position: absolute; left: 0; top: 0; width: clamp(72px, 9vw, 140px); height: 3px; background: var(--ex-brass); }
+/* Firm: the interests statement at display scale */
+.sub .band[aria-labelledby="h-interests"] .statement { font: italic 500 clamp(26px, 1.7vw + 15px, 44px)/1.25 var(--font-display); letter-spacing: -0.012em; }
+/* Approach: the commercial-terms statement as the page's pull quote */
+.sub .band#alignment .statement { font: italic 500 clamp(24px, 1.3vw + 16px, 38px)/1.3 var(--font-display); color: var(--ex-navy); padding: 24px 0 0; border-top: 3px solid var(--ex-brass); max-width: 22em; }
+
+/* ================================================================ numbers as graphic elements (existing numerals) */
+/* the six stages: the 01-06 numerals become large brass figures; the stage text hangs beside them */
+.home .y-stage { grid-template-columns: clamp(64px, 5.4vw, 88px) minmax(0, 1fr); gap: 6px 14px; padding: 22px 0; align-items: start; }
+.home .y-stage > span { font: 400 clamp(44px, 3.4vw, 64px)/.86 var(--font-display); letter-spacing: -0.04em; color: transparent; -webkit-text-stroke: 1px var(--ex-brass-l); font-variant-numeric: lining-nums; }
+.home .y-phase { position: relative; }
+.home .y-phase__label { letter-spacing: .26em; }
+.home .y-gate { border-left: 2px solid var(--ex-brass-l); padding-left: 12px; }
+/* the four mechanisms: 01-04 as display figures over a hairline */
+.home .y-mech__n { font: 400 clamp(40px, 2.8vw + 8px, 60px)/.9 var(--font-display) !important; letter-spacing: -0.03em; color: var(--ex-brass) !important; padding-bottom: 10px; border-bottom: 1px solid var(--ex-hair); }
+/* Approach: the standards I-VI as figures */
+.home .x-std__n { font-family: var(--font-display); font-size: clamp(36px, 2.4vw + 10px, 54px); line-height: 1; color: var(--ex-brass); }
+
+/* ================================================================ density: compose the floating sections */
+@media (min-width: 1024px) {
+  /* home 02: the illustration overlaps the prose column edge and sits lower, so the pair reads as one composition */
+  .home #problem .y-split > figure { margin-top: clamp(40px, 5vw, 88px); margin-right: calc(-1 * var(--gut, 48px)); }
+  /* home founder: the portrait overlaps the paper edge, the copy runs on a side rail */
+  .home .y-founder__photo { margin-left: calc(-1 * var(--gut, 48px)); }
+  .home .y-founder__copy { padding-left: clamp(24px, 3vw, 56px); border-left: 1px solid var(--ex-hair); }
+  /* inner sticky heads get a side rail */
+  .sub .band .grid > :is(.h2, .h1).c-1-5 { padding-right: clamp(16px, 2vw, 32px); }
+}
+.home .y-founder__photo::before { inset: 26px -26px 52px 26px; border-color: var(--ex-brass-l); }
+.home .y-founder__photo picture { box-shadow: none; }
+.home .y-founder__photo img { filter: saturate(.9) contrast(1.04); }
+
+/* ================================================================ quiet image hover states */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .home .y-pattern__art, .home .x-audit__map { transition: transform 1s var(--ex-ease); }
+  .home .y-pattern:hover .y-pattern__art { transform: translateY(-3px); }
+  .ex-band:hover .ex-band__img { filter: saturate(.92) sepia(.1) contrast(1.08) brightness(.96); transition: filter 1.2s var(--ex-ease); }
+}
+
+/* ================================================================ richer footer */
+footer.y-footer { overflow: hidden; isolation: isolate; padding-top: clamp(96px, 9vw, 140px) !important; }
+/* the night city, barely there, behind the footer (cached hero file on Home, small webp elsewhere) */
+footer.y-footer::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .16;
+  background: linear-gradient(180deg, #07111f 0%, rgba(7,17,31,.4) 45%, #07111f 100%), url("img/hero-cityscape-860.webp") 70% 60% / cover no-repeat;
+  filter: grayscale(.4); }
+.y-footer__tag { font: italic 500 clamp(24px, 1.4vw + 14px, 38px)/1.2 var(--font-display) !important; letter-spacing: -0.01em !important; color: #e2cfa9 !important; max-width: 14em; }
+.y-footer__about { padding-left: clamp(20px, 2vw, 32px); border-left: 1px solid rgba(201,169,120,.35); }
+.y-footer__nav { gap: 14px; }
+
+/* ================================================================ pass 2: reduced motion and print */
+@media (prefers-reduced-motion: reduce) {
+  .home .x-cover__img, .sub .hero--page.has-photo > .sub-hero__bg img { animation: none !important; scale: none !important; }
+  .home .x-cover::after { animation: none; opacity: .8; scale: none; }
+  .home .x-cover__video { display: none !important; }
+  .ex-band__img { translate: none !important; }
+}
+@media print { .ex-band { display: none; } .home .x-cover__video { display: none; } }
