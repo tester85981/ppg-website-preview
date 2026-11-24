@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Garage Brewing Deal — PPG Deal Thesis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f6f1e6;
+    --paper-deep: #efe7d6;
+    --navy: #132a44;
+    --navy-soft: #2c435f;
+    --ink: #1d2733;
+    --muted: #6d6455;
+    --rule: #d9cfb8;
+    --brass: #a07d2c;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --sans: 'Libre Franklin', 'Helvetica Neue', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16.5px; line-height: 1.62; }
+  .page { max-width: 1180px; margin: 0 auto; padding: 44px 34px 60px; }
+
+  .masthead { border-bottom: 3px double var(--navy); padding-bottom: 26px; }
+  .masthead-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--navy); }
+  .firm { font-weight: 700; }
+  .masthead-note { color: var(--muted); letter-spacing: 0.08em; text-align: right; }
+  .masthead h1 { font-family: var(--serif); font-weight: 700; color: var(--navy); font-size: clamp(46px, 7vw, 84px); line-height: 0.98; margin: 26px 0 8px; max-width: 10ch; }
+  .masthead .sub { font-family: var(--serif); font-size: clamp(22px, 3vw, 30px); color: var(--navy-soft); margin: 0 0 14px; }
+  .dek { font-size: 17.5px; max-width: 68ch; margin: 0; }
+  .dek strong { color: var(--navy); }
+
+  .labels { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); }
+  .labels b { color: var(--navy); text-transform: uppercase; letter-spacing: 0.1em; font-size: 11.5px; margin-right: 6px; }
+
+  section { margin-top: 54px; }
+  .sec-head { display: grid; grid-template-columns: 92px 1fr; gap: 20px; align-items: baseline; border-top: 2px solid var(--navy); padding-top: 14px; margin-bottom: 22px; }
+  .sec-n { font-family: var(--serif); font-size: 44px; font-weight: 700; color: var(--brass); line-height: 1; }
+  .sec-head h2 { font-family: var(--serif); font-size: clamp(28px, 3.6vw, 38px); color: var(--navy); margin: 0; line-height: 1.12; font-weight: 700; }
+  .sec-head .kicker { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+
+  .cols { display: grid; grid-template-columns: 1fr 300px; gap: 44px; }
+  .rail { border-left: 1px solid var(--rule); padding-left: 24px; }
+  .rail h3 { font-family: var(--serif); color: var(--navy); font-size: 19px; margin: 0 0 10px; }
+  .rail p, .rail li { font-size: 14.5px; }
+  p { margin: 0 0 15px; max-width: 70ch; }
+  .lead { font-family: var(--serif); font-size: 20.5px; line-height: 1.5; color: var(--navy-soft); max-width: 64ch; }
+  ul, ol { margin: 0 0 16px; padding-left: 22px; max-width: 70ch; }
+  li { margin-bottom: 8px; }
+  strong.navy { color: var(--navy); }
+
+  .bigrow { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 0; border-top: 1px solid var(--navy); border-bottom: 1px solid var(--rule); margin: 26px 0 8px; }
+  .bigrow > div { padding: 18px 26px 16px 0; margin-right: 26px; border-right: 1px solid var(--rule); }
+  .bigrow > div:last-child { border-right: none; margin-right: 0; }
+  .big-label { font-size: 11.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); font-weight: 600; display: block; }
+  .big-value { font-family: var(--serif); font-size: clamp(34px, 4.4vw, 52px); font-weight: 700; color: var(--navy); line-height: 1.05; display: block; margin: 4px 0; }
+  .big-sub { font-size: 13.5px; color: var(--navy-soft); display: block; }
+
+  table { border-collapse: collapse; width: 100%; margin: 18px 0 26px; }
+  th, td { border-bottom: 1px solid var(--rule); padding: 10px 14px 10px 0; text-align: left; vertical-align: top; font-size: 15px; }
+  thead th { font-size: 11.5px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--navy); font-weight: 600; }
+  tbody th { font-family: var(--serif); color: var(--navy); font-size: 16.5px; font-weight: 600; }
+  td.num, th.num { text-align: right; font-family: var(--serif); white-space: nowrap; }
+  .note { display: block; font-family: var(--sans); font-weight: 400; font-size: 13px; color: var(--muted); margin-top: 4px; line-height: 1.45; }
+  .money { font-family: var(--serif); color: var(--navy); font-weight: 600; white-space: nowrap; }
+
+  .pull { font-family: var(--serif); font-size: clamp(22px, 3vw, 28px); line-height: 1.35; color: var(--navy); border-left: 3px solid var(--brass); padding: 4px 0 4px 22px; margin: 26px 0 26px 40px; max-width: 56ch; }
+  .formula { font-family: var(--serif); font-size: 19px; color: var(--navy); background: var(--paper-deep); padding: 16px 22px; margin: 18px 0 22px; max-width: 72ch; }
+
+  .branch { display: grid; grid-template-columns: 120px 1fr; gap: 26px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+  .branch:first-of-type { border-top: 1px solid var(--navy); }
+  .branch-p { font-family: var(--serif); font-size: 46px; font-weight: 700; color: var(--navy); line-height: 1; }
+  .branch-p small { display: block; font-family: var(--sans); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-top: 6px; }
+  .branch h3 { font-family: var(--serif); color: var(--navy); font-size: 21px; margin: 0 0 8px; }
+  .branch p { font-size: 15.5px; }
+
+  .struct { padding: 20px 0 6px; border-bottom: 1px solid var(--rule); }
+  .struct:first-of-type { border-top: 1px solid var(--navy); }
+  .struct-head { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; }
+  .struct h3 { font-family: var(--serif); color: var(--navy); font-size: 22px; margin: 0; }
+  .struct h3 .rk { color: var(--brass); margin-right: 10px; }
+  .struct-fee { font-family: var(--serif); font-size: 19px; color: var(--navy); font-weight: 700; white-space: nowrap; }
+  .struct-fee small { font-family: var(--sans); font-weight: 600; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: block; text-align: right; }
+  .party { display: grid; grid-template-columns: 150px 1fr; gap: 18px; margin: 8px 0; font-size: 15px; }
+  .party b { color: var(--navy); font-size: 12px; letter-spacing: 0.11em; text-transform: uppercase; padding-top: 3px; }
+
+  .footer { border-top: 3px double var(--navy); margin-top: 60px; padding-top: 16px; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+
+  @media (max-width: 920px) {
+    .page { padding: 28px 18px 48px; }
+    .cols { grid-template-columns: 1fr; }
+    .rail { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 18px; }
+    .bigrow { grid-template-columns: 1fr; }
+    .bigrow > div { border-right: none; margin-right: 0; border-bottom: 1px solid var(--rule); }
+    .bigrow > div:last-child { border-bottom: none; }
+    .branch { grid-template-columns: 1fr; gap: 8px; }
+    .pull { margin-left: 0; }
+    .party { grid-template-columns: 1fr; gap: 2px; }
+    td.num, th.num { white-space: normal; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="masthead-top">
+      <span class="firm">Preeminent Partners Group</span>
+      <span class="masthead-note">Deal thesis · Internal planning only · Not for the prospect</span>
+    </div>
+    <h1>The Garage Brewing Deal</h1>
+    <p class="sub">Lou Kashmere, Garage Brewing Co., Murrieta, California</p>
+    <p class="dek">
+      What this deal is, what it is worth, and how PPG should run it. Built November 23, 2026
+      from <strong>4 independent advisor passes</strong> (Claude, Gemini, Perplexity, ChatGPT), each given the full
+      packet including Jay Abraham's <em>Partner or Perish</em>, each then put through a self-critique round, and
+      every disputed fact settled against primary sources. Lou replied to PPG's outreach by phone on
+      November 23, 2026. No mandate is signed, no terms are agreed, and Garage's books have never been seen.
+    </p>
+    <div class="labels">
+      <span><b>Sourced</b> a public source or verified record states it</span>
+      <span><b>Estimate</b> a reasoned figure, reasoning shown</span>
+      <span><b>Hypothesis</b> only a signed agreement or Lou's answers can settle it</span>
+    </div>
+  </header>
+
+  <section id="summary">
+    <div class="sec-head">
+      <span class="sec-n">&nbsp;</span>
+      <div>
+        <div class="kicker">Executive summary</div>
+        <h2>The deal is the route to market, not a replacement truck</h2>
+      </div>
+    </div>
+
+    <p class="lead">
+      All 4 advisors, working independently, rejected the obvious framing. This is not a
+      "find Lou a new distributor" deal. It is a deal about improving and protecting the economics
+      of Garage's whole route to market, with AB One's absorption of Straub as the event that
+      opened the conversation, not necessarily the transaction PPG gets paid on.
+    </p>
+
+    <p>
+      <strong class="navy">The lead structure is the Prepared Garage mandate.</strong> A signed, narrowly scoped
+      performance mandate under which PPG builds a vetted wholesaler bench <em>before</em> AB One decides
+      anything. If Garage is not selected, or is selected on terms Lou hates, PPG runs the placement.
+      If Garage is selected, the bench becomes the credible alternative behind Lou's consent, and a
+      24-month standby clause applies PPG's placement terms automatically if AB One drops Garage later.
+      It is the only structure that is useful in every branch, it costs Lou nothing unless it produces,
+      and it is the structure Lou actually called back about.
+    </p>
+
+    <p>
+      <strong class="navy">The fee is measured against the counterfactual, or it is not collectible.</strong> Two advisors
+      independently wrote the same formula, and the other 2 built the same idea into contract language:
+    </p>
+
+    <div class="formula">PPG fee = 25% (Hypothesis) &times; max(0, realized contribution with PPG &minus; agreed baseline contribution without PPG)</div>
+
+    <p>
+      If Lou could have kept 80% of his Straub profit on his own and PPG gets him to 90%, PPG earned
+      the 10 points, not the 90. That discipline is what makes the mandate signable, and it is also
+      what caps the honest numbers below.
+    </p>
+
+    <div class="bigrow">
+      <div>
+        <span class="big-label">Successful standalone placement, revised central case</span>
+        <span class="big-value">$13,901</span>
+        <span class="big-sub">PPG year 1 fee, and $33,362 over 3 years (Hypothesis). At a 20% Straub share, replacing the model's original 30% base case of $20,851.</span>
+      </div>
+      <div>
+        <span class="big-label">The bundle, where the money is</span>
+        <span class="big-value">$34,701</span>
+        <span class="big-sub">PPG year 1 if Garage anchors a portfolio with 2 recruited Straub-roster partners (Hypothesis). $83,282 over 3 years.</span>
+      </div>
+      <div>
+        <span class="big-label">Expected value today</span>
+        <span class="big-value">~$2,500</span>
+        <span class="big-sub">Probability-weighted year 1 (Hypothesis). The chance PPG earns $0 is about 79%. That is the honest shape of a first deal.</span>
+      </div>
+    </div>
+
+    <p>
+      The planning numbers moved down during this process, and the report shows its work. The model's
+      original 30% Straub share did not survive cross-examination: the Brewers Association classified
+      Garage as a brewpub, a classification that requires at least 25% of sales on site, and Lou's
+      taproom weight and self-distribution history point the same way. The planning range is now
+      <strong class="navy">15% to 20%</strong> (Estimate) until Lou gives us the real split. At a 10% share, the standalone
+      fee falls to $6,950 (Hypothesis) and the correct posture flips to bundle-led. Tomorrow's callback
+      exists to replace these labels with facts, starting with that one.
+    </p>
+  </section>
+
+  <section id="company">
+    <div class="sec-head">
+      <span class="sec-n">1</span>
+      <div>
+        <div class="kicker">The company</div>
+        <h2>Garage Brewing: a Valley institution with 2 pillars, and 1 is changing owners</h2>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div>
+        <p>
+          Garage Brewing Co. is the Temecula Valley's largest brewing operation (Sourced), run by
+          Lou Kashmere, its founder and, by his own statement on his November 23, 2026 voicemail,
+          its president and CEO (Sourced). His wife Sharon Kashmere is a co-owner in public records
+          (Sourced); whether she is in this decision is a callback question, not an assumption.
+          Lou has operated businesses in Temecula since at least 1991 (Sourced) and is a hands-on
+          founder: he created the recipe for the Classic Hazy Double IPA himself (Sourced), a beer
+          with 3 San Diego International Beer Competition medals from 2019 (Sourced). He is a phone
+          person, not an email person (Sourced, his voicemail). He has no public LinkedIn or social
+          profile. Everything with Lou happens by voice.
+        </p>
+        <p>
+          The operation consolidated in Murrieta in 2021 when the Old Town Temecula brewpub closed
+          (Sourced): a 10,000 sq ft production plant at 26015 Jefferson Ave with a 30-barrel
+          brewhouse and a 32-tap taproom, open Wednesday to Sunday (Sourced). Production was
+          6,683 barrels in 2022, the No. 1 brewpub in the Pacific Region in the Brewers Association
+          survey (Sourced). No newer public volume figure exists. The local scene is thinning
+          around Garage: Electric Brewing in Murrieta closed in 2026 after 12 years (Sourced),
+          and Garage is consolidating its position as the Valley's survivor at the same moment its
+          distributor changes hands. It also brews exclusive products for Disneyland's Oga's
+          Cantina, an account relationship still listed as of 2025 (Sourced).
+        </p>
+        <p>
+          Under Abraham's Parthenon test, Garage stands on 2 pillars: the taproom, which no
+          distributor change can touch, and 1 distributor for everything that leaves the building
+          through the Inland Empire. One of those pillars is about to change owners. A pillar being
+          removed is the reason to buy help. It is also why a structure that only replaces that
+          same pillar undersells the opportunity.
+        </p>
+      </div>
+      <div class="rail">
+        <h3>At a glance</h3>
+        <ul>
+          <li><strong>Volume:</strong> 6,683 barrels, 2022 (Sourced). Newest public figure; 4 years old.</li>
+          <li><strong>Plant:</strong> 10,000 sq ft, Murrieta; 30-barrel brewhouse; 32 taps (Sourced).</li>
+          <li><strong>Brewhouse arithmetic:</strong> 4 brews a week makes 6,000 barrels a year; 5 makes 7,500 (Estimate). A scheduling illustration, not a capacity audit.</li>
+          <li><strong>Property:</strong> owned or leased is not publicly determinable (verified). Multi-suite building, Garage is Suite D; hints point to a lease.</li>
+          <li><strong>Decision:</strong> Lou, with Sharon's role unconfirmed.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--serif); color: var(--navy); font-size: 23px; margin: 30px 0 4px;">The asset audit: what a deal can be built on</h3>
+    <table>
+      <thead>
+        <tr><th>Asset</th><th>What we actually know</th><th>What the AB One absorption does to it</th><th>Who would want it</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Production plant and headroom</th>
+          <td>30-barrel brewhouse in 10,000 sq ft (Sourced). 2022 output equals about 4.5 brews a week (Estimate). Fermenter and cellar capacity, the real constraint, is unknown.</td>
+          <td>Raises its value as an asset. Any hit to distributed volume leaves stainless underused, and spare capacity becomes sellable.</td>
+          <td>Brands with no plant, private-label buyers, contract brewers.</td>
+        </tr>
+        <tr>
+          <th>Brands and recipes</th>
+          <td>13-year brand history (Sourced). Classic Hazy Double IPA, Lou's own recipe, 3 competition medals in 2019 (Sourced). Full line-up economics unknown.</td>
+          <td>Down inside AB One, where a small independent competes for rep attention with AB's own craft portfolio. Up outside it: a medal-winning local flagship is exactly what an independent wholesaler's book lacks.</td>
+          <td>Independent wholesalers; licensing and private-label partners.</td>
+        </tr>
+        <tr>
+          <th>The taproom</th>
+          <td>32 taps in Murrieta (Sourced). Possibly at least 1,671 barrels a year sold on site, if the BA brewpub classification (25% or more on site) held in 2022 (Estimate).</td>
+          <td>Up. It is the 1 channel no distributor change touches, and Garage's standing answer to Karl Strauss.</td>
+          <td>Host-beneficiary partners: events, food partners, guest taps.</td>
+        </tr>
+        <tr>
+          <th>Distribution relationships</th>
+          <td>Straub for the Inland Empire and Riverside County (Sourced). Self-handled accounts held for years in Southern California and Las Vegas (Sourced, current Vegas arrangement unverified). Lou in 2015: Garage is well positioned "because it controls both sales and distribution" (Sourced).</td>
+          <td>The Straub relationship is down unless Garage is selected. The self-handled accounts go up: they are Lou's fallback, his leverage, and the baseline PPG gets measured against.</td>
+          <td>Any wholesaler taking Garage inherits an account base; displaced brands may want the route itself.</td>
+        </tr>
+        <tr>
+          <th>Valley position</th>
+          <td>Largest brewing operation in the Temecula Valley (Sourced). No. 1 Pacific Region brewpub, 2022 (Sourced). Neighbouring breweries closing around it (Sourced).</td>
+          <td>Up. "The Valley's own" is what an independent wholesaler or a Temecula host account wants on the truck and on the tap list.</td>
+          <td>Wholesalers, wineries, resorts, venues, local retail.</td>
+        </tr>
+        <tr>
+          <th>Lou himself</th>
+          <td>Operating in Temecula since 1991 (Sourced): car care and gas station, city advisory work, property development, then Garage in 2013. "Founder and Tinkerer" (Sourced).</td>
+          <td>Neutral to up. Lou can open Valley doors PPG cannot. It is also why PPG's role has to be legwork and timing, never claimed access.</td>
+          <td>Hosts, landlords, partners who need a principal who shows up.</td>
+        </tr>
+        <tr>
+          <th>Real estate</th>
+          <td>Ownership of 26015 Jefferson Ave is not publicly determinable (verified). Lou has a property history through LSK, LLC (Sourced).</td>
+          <td>Neutral, unless owned. If owned, it is staying power to reject bad terms, and collateral. If leased, the term matters.</td>
+          <td>Lenders, co-tenants. Not a PPG fee item unless Lou asks.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="situation">
+    <div class="sec-head">
+      <span class="sec-n">2</span>
+      <div>
+        <div class="kicker">The situation</div>
+        <h2>Straub, AB One, and a consent nobody has defined yet</h2>
+      </div>
+    </div>
+
+    <p>
+      On November 13, 2026, Anheuser-Busch announced it would acquire Straub Distributing's
+      distribution rights for A-B brands, plus selected third-party craft and non-alcoholic brands,
+      transferring to AB One (Sourced). The close is expected in early 2027, after which Straub
+      becomes AB One Anaheim, operating from the same facility (Sourced). Straub sells about
+      9 million cases a year and employs more than 330 people (Sourced). This was Straub's choice:
+      Straub approached Anheuser-Busch (Sourced, Straub's president to Inc.). It is AB One's second
+      California buyback of the year, after Advance Beverage in Bakersfield (Sourced).
+    </p>
+    <p>
+      The mechanics that matter for Garage are 3 sentences long. Only selected brands transfer.
+      A transfer requires the supplier's consent: the announcement language is "subject to supplier
+      approval" (Sourced). And as of November 23, 2026, AB One has published nothing else: no
+      selection list, no consent process, no criteria, no deadlines (verified). Nobody can tell Lou
+      today where Garage lands. That vacuum is the timing argument for signing a mandate now, while
+      being prepared is still cheap.
+    </p>
+    <p>
+      Garage's exposure is specific. Straub's core territory is Orange County plus parts of
+      Riverside County; Garage sits in Straub's <strong class="navy">"expanded territory" subset</strong>, alongside
+      Brewery X, Bootlegger's, Left Coast, Four Sons, Capacity, and Hurray's Girl Beer (Sourced,
+      Straub's own site). Trade coverage treats that subset as the most exposed group in the
+      transition, and Beer Marketer's Insights expects that "most of the remaining suppliers will
+      look for other routes to market" (Sourced). A beverage attorney quoted by Inc. called the deal
+      "terrible news" for Straub's craft clients and expects disputes over terminations and
+      conflicts of interest (Sourced). The clock is roughly 6 to 14 weeks to the close (Estimate),
+      and wholesalers allocate their 2027 craft books early. Prepared beats fast.
+    </p>
+
+    <div class="pull">
+      Consent is a negotiating position inside a reasonable, documented process. It is not a veto
+      to wave around, and California law can make it expensive to treat it as one.
+    </div>
+
+    <p>
+      One legal fact disciplines every consent conversation in this report. Business and
+      Professions Code § 25000.9 makes a <strong class="navy">beer manufacturer</strong> who unreasonably withholds
+      consent to a transfer of an ownership interest in a <strong class="navy">wholesaler's business</strong> liable in
+      damages to that wholesaler (Sourced, statute text). Garage is the manufacturer. Straub is the
+      wholesaler. The statute points at Lou, not at AB One: unreasonably withholding consent could
+      make Garage liable to Straub, with damages capped at compensatory damages plus costs, fair
+      market value expressly including goodwill, and any successor's payment offsetting. The word
+      "unreasonably" is not defined anywhere in the section. Whether the AB One structure triggers
+      it, and what Garage's own Straub agreement requires, are counsel questions. Section 6 carries
+      the full gate list.
+    </p>
+  </section>
+
+  <section id="branches">
+    <div class="sec-head">
+      <span class="sec-n">3</span>
+      <div>
+        <div class="kicker">The branches</div>
+        <h2>3 ways this plays out, and what PPG does in each</h2>
+      </div>
+    </div>
+
+    <p>
+      Probabilities are reconciled from the 4 advisors in section 6 and are all Hypothesis. They
+      exist to size PPG's time, not to predict Lou's future. His answers on the callback can
+      collapse this table in minutes.
+    </p>
+
+    <div class="branch">
+      <div class="branch-p">45%<small>Branch A · Hypothesis</small></div>
+      <div>
+        <h3>AB One selects Garage, and Lou is inclined to consent</h3>
+        <p>
+          The honest answer first: <strong class="navy">PPG probably earns close to $0 here, and should be willing to.</strong>
+          There is no orphaned volume, so there is no placement to make, and a fee on barrels that
+          roll over to AB One anyway would fail the counterfactual test and kill the relationship.
+          What remains chargeable is narrow and real: improvements over AB One's first written offer
+          that can be checked on paper (territory protection for Lou's self-delivered accounts,
+          depletion and service commitments, freshness standards, marketing funds, termination
+          protection), worth perhaps $6,000 of measured improvement, of which PPG takes 25%
+          (Hypothesis); a territory carve-out keeping the Valley for Lou's own delivery, worth
+          about $12,000 to Garage on 300 barrels (Hypothesis); and above all the standby clause,
+          which costs Lou nothing and keeps this branch from being worth zero if AB One trims its
+          portfolio after the close, as acquirers do.
+        </p>
+        <p>
+          <strong class="navy">PPG year 1: $0 to $4,500</strong> (Estimate/Hypothesis). Fantasy, and not priced anywhere in
+          this report: managing AB One's attention, a fee on Garage's total AB One growth, or
+          "brand defense" as a fee basis.
+        </p>
+      </div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-p">40%<small>Branch B · Hypothesis</small></div>
+      <div>
+        <h3>Garage is not selected, or the terms are terms Lou hates</h3>
+        <p>
+          The placement play, run end to end: Lou supplies trailing-12-month Straub-channel barrels,
+          dollars, and accounts, which become the written baseline. PPG builds the 1-page brand
+          sheet, works the verified wholesaler tier (Sunset Distributing, Coast Beverage, Guardian
+          Distributors of So Cal, section 5), and runs meetings at the plant, where Lou and the
+          building are the pitch. Term sheets are compared on contribution after all costs, with
+          rep focus, account targets, and a freshness commitment written in, because Lou's stated
+          fear is beer that dies on the shelf. Handover happens before the close; measurement is
+          monthly against the baseline.
+        </p>
+        <p>
+          What Garage offers a wholesaler: about 1,337 barrels of established, cash-flowing volume
+          at the central case (Estimate), the Valley's largest local brand (Sourced), a taproom that
+          markets the brand at no cost to the wholesaler, and an owner who shows up. At $35 to $50 a
+          barrel of wholesaler contribution after variable costs (Estimate/Hypothesis), that volume
+          is worth roughly $46,800 to $66,900 a year to the house that takes it.
+        </p>
+        <p>
+          <strong class="navy">PPG year 1: $13,901 at the central case, $33,362 over 3 years</strong> (Hypothesis). Garage
+          keeps $41,702 of the $55,603 preserved increment. Lou's own fallback, self-delivery, is
+          real and goes into the baseline: PPG is paid only on what beats it.
+        </p>
+      </div>
+    </div>
+
+    <div class="branch">
+      <div class="branch-p">15%<small>Branch C · Hypothesis</small></div>
+      <div>
+        <h3>The portfolio branch: Garage anchors a bundle of displaced Straub brands</h3>
+        <p>
+          Instead of bringing a wholesaler 1 brewery, PPG brings a route: Garage as anchor, plus
+          complementary displaced independents from Straub's own roster (section 5), each on its own
+          mandate and its own agreement. For the wholesaler, about 4,337 barrels in 1 decision is
+          roughly $433,700 a year of gross margin (Estimate/Hypothesis), the volume at which a
+          dedicated craft rep pencils. For Garage, anchor status buys negotiating weight and a rep
+          whose book is mostly displaced craft; the cost is shared attention, mitigated by
+          Garage-specific account targets in the term sheet. For PPG, the fee multiplies without
+          4 times the work.
+        </p>
+        <p>
+          The guardrail every advisor attached: <strong class="navy">Garage's own placement is never contingent on the
+          bundle forming.</strong> If no partner signs, Branch B runs exactly as written.
+        </p>
+        <p>
+          <strong class="navy">PPG year 1: $34,701 with 2 partners, $44,101 with 3</strong> (Hypothesis). 3-year:
+          $83,282 and $105,842.
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top: 20px;">
+      On top of the branches sit 2 gates. The probability Lou signs a mandate at all is put at
+      <strong class="navy">40%</strong> (Hypothesis): the warmth signals are real, a same-day callback and his personal
+      cell, but they are curiosity signals, not commitment signals. And inside each branch, the
+      chance of a paid outcome given a mandate is 50% in A, 60% in B, and 45% in C (Hypothesis).
+      Weighted through, the expected year 1 value is about <strong class="navy">$2,500</strong>, about $6,100 over
+      3 years, with a roughly 79% chance of $0 (all Hypothesis). Section 6 shows the full stack
+      and where each advisor's own number differed.
+    </p>
+  </section>
+
+  <section id="structures">
+    <div class="sec-head">
+      <span class="sec-n">4</span>
+      <div>
+        <div class="kicker">The structures, ranked</div>
+        <h2>6 ways to build on Garage, priced for all 3 parties</h2>
+      </div>
+    </div>
+
+    <p>
+      Ranked on probability-weighted value, fit with Lou, and fit with the clock. PPG's participation
+      is 25% of measured incremental contribution throughout (Hypothesis, the pilot band midpoint;
+      not agreed pricing). One-time cash is counted once, never multiplied by the persistence factor.
+      Four further structures are held in reserve and named at the end.
+    </p>
+
+    <div class="struct">
+      <div class="struct-head">
+        <h3><span class="rk">1</span>Prepared Garage: the standby and placement mandate</h3>
+        <span class="struct-fee">$13,901<small>PPG year 1 · 3-yr $33,362 · Hypothesis</small></span>
+      </div>
+      <p>The mandate itself. PPG builds and holds the wholesaler bench before AB One decides, runs the Branch B placement if needed, and holds the 24-month standby if not. Collectibility is engineered in: the fee is 25% of contribution on depletions through the PPG-introduced wholesaler, times a fixed 50% attribution factor, with Lou's self-delivered accounts excluded.</p>
+      <div class="party"><b>Garage</b><span>Keeps $41,702 of the $55,603 preserved increment in year 1 (Hypothesis). In Branch A, pays $0 unless written terms measurably improve.</span></div>
+      <div class="party"><b>Counterparty</b><span>The wholesaler takes about 1,337 barrels (Estimate) worth an estimated $46,800 to $66,900 a year in contribution after variable costs.</span></div>
+      <div class="party"><b>Must be true</b><span>A Straub share of at least about 15%; a written baseline; at least 3 wholesalers willing to meet before the close.</span></div>
+    </div>
+
+    <div class="struct">
+      <div class="struct-head">
+        <h3><span class="rk">2</span>The orphan portfolio bundle</h3>
+        <span class="struct-fee">$34,701<small>PPG year 1 · 3-yr $83,282 · Hypothesis</small></span>
+      </div>
+      <p>Branch C as a structure. Garage anchors a coordinated portfolio of displaced Straub-roster independents, presented to 1 wholesaler as a single route-density proposition. Separate mandates, separate baselines, separate agreements, counsel supervising what competitors share.</p>
+      <div class="party"><b>Garage</b><span>Its Rank 1 economics, plus anchor status and term-sheet weight a 1,337-barrel brand cannot get alone.</span></div>
+      <div class="party"><b>Counterparty</b><span>About 4,337 barrels in 1 decision, roughly $433,700 a year of gross margin at about $100 a barrel (Estimate/Hypothesis).</span></div>
+      <div class="party"><b>Must be true</b><span>At least 2 roster independents are not selected, carry about 500 barrels or more at risk each, and sign before the close. Partner sizes are unknown today.</span></div>
+    </div>
+
+    <div class="struct">
+      <div class="struct-head">
+        <h3><span class="rk">3</span>Consent-for-value review and territory carve-out</h3>
+        <span class="struct-fee">$0 to $4,500<small>PPG year 1 · Hypothesis</small></span>
+      </div>
+      <p>The Branch A structure. PPG reviews AB One's first written offer against the market alternative it has built, drafts Lou's asks, and prices only the measured improvement over that first offer. The carve-out variant keeps the Temecula Valley for Lou's own delivery.</p>
+      <div class="party"><b>Garage</b><span>Keeps 75% of any measured improvement (Hypothesis terms). Carve-out illustration: 300 barrels at $40 a barrel net capture is $12,000.</span></div>
+      <div class="party"><b>Counterparty</b><span>AB One keeps a Valley anchor brand and avoids a contested transition. It can also simply decline; Garage's volume does not force its hand.</span></div>
+      <div class="party"><b>Must be true</b><span>A written first offer exists, and partial consent is legally and commercially possible under Garage's current Straub agreement, which PPG has not seen. Section 25000.9 fences the whole structure.</span></div>
+    </div>
+
+    <div class="struct">
+      <div class="struct-head">
+        <h3><span class="rk">4</span>Wine country's beer: the host-beneficiary programme</h3>
+        <span class="struct-fee">$6,300 to $7,700<small>PPG year 1 · 3-yr $15,120 to $18,480 · Hypothesis</small></span>
+      </div>
+      <p>Temecula Valley hosts pour the Valley's own beer for the non-wine drinker in every tasting group. Garage supplies a free first keg, a tap handle, and staff training. Lou makes the introductions; PPG builds the list, the offer, and the measurement. Works in every branch and never touches the Straub question.</p>
+      <div class="party"><b>Garage</b><span>About $25,200 to $30,800 of incremental contribution on 200 to 250 new barrels (Estimate/Hypothesis).</span></div>
+      <div class="party"><b>Counterparty</b><span>Each host: about 3,100 pints a year at about $8 is roughly $24,800 of revenue against about $4,125 of keg cost, about $20,700 gross (Estimate).</span></div>
+      <div class="party"><b>Must be true</b><span>At least 20 hosts whose licenses permit beer sales (many winery tasting rooms cannot; the list is filtered first), local keg delivery, and every account genuinely new.</span></div>
+    </div>
+
+    <div class="struct">
+      <div class="struct-head">
+        <h3><span class="rk">5</span>Capacity, private label, and contract brewing</h3>
+        <span class="struct-fee">$7,500 to $12,000<small>PPG year 1 · 3-yr $18,000 to $28,800 · Hypothesis</small></span>
+      </div>
+      <p>Garage brews house beers under a buyer's label, or contract-brews for brands with demand and no plant, with Lou designing the recipes. The only structure that pays in every branch, and the one gated hardest on an unknown: real fermenter headroom.</p>
+      <div class="party"><b>Garage</b><span>$30,000 to $48,000 of contribution on 600 barrels (Estimate/Hypothesis), before setup and compliance costs.</span></div>
+      <div class="party"><b>Counterparty</b><span>A signature beer, or production capacity, with no brewery to run. One advisor's illustration has the partner saving about $18,000 a year against its next-best production option (Hypothesis).</span></div>
+      <div class="party"><b>Must be true</b><span>At least 600 barrels a year of genuine cellar headroom, and at least 3 committed buyers. Neither is verified.</span></div>
+    </div>
+
+    <div class="struct">
+      <div class="struct-head">
+        <h3><span class="rk">6</span>Garage Distribution: Lou as the Valley's craft wholesaler</h3>
+        <span class="struct-fee">$10,000+<small>PPG year 1 · Hypothesis</small></span>
+      </div>
+      <p>Garage takes a wholesaler license and delivers its own beer plus 3 to 5 displaced small brands across the Valley. It fits Lou's stated philosophy better than anything on this page, and it is a business build, not a deal, which is why it ranks last for now.</p>
+      <div class="party"><b>Garage</b><span>About $40,000 net on 1,000 partner barrels, plus the self-delivery spread on its own volume (Estimate/Hypothesis), before capital for trucks and cold storage.</span></div>
+      <div class="party"><b>Counterparty</b><span>Partner brands get a local route run by a brewer who understands freshness.</span></div>
+      <div class="party"><b>Must be true</b><span>Lou wants to run a distribution business, the license can be obtained in time, and competing brands will trust a competitor with their beer. A 2027 conversation.</span></div>
+    </div>
+
+    <p style="margin-top: 22px;">
+      <strong class="navy">Held in reserve, named so they are not lost:</strong> a Las Vegas and SoCal route-sharing
+      venture on Garage's existing accounts ($15,000 year 1 to PPG, Hypothesis; gated on the unverified
+      current Vegas arrangement and Nevada wholesaler law); dormant account recovery ($3,744,
+      Hypothesis; the dormant account pool is unverified); a restaurant group house beer ($5,990,
+      Hypothesis; no identified buyer); and a taproom affinity club ($7,800, Hypothesis; the highest
+      attribution friction with Lou of anything considered).
+    </p>
+  </section>
+
+  <section id="dream100">
+    <div class="sec-head">
+      <span class="sec-n">5</span>
+      <div>
+        <div class="kicker">The Dream 100</div>
+        <h2>The counterparty map, with the names we could verify and only those</h2>
+      </div>
+    </div>
+
+    <p>
+      Two rules govern this list. <strong class="navy">No introduction is promised, and Garage is not named to anyone,
+      until the mandate is signed.</strong> Pre-mandate outreach is market sounding about displaced
+      independent craft volume from the Straub transition. And <strong class="navy">real names appear only where a
+      primary source supports them.</strong> That rule changed this list during the consult: 1 advisor named
+      Stone Distributing and Scout Distribution as independent bidders. They are not. Hand Family
+      Companies acquired Stone and Classic Beverage in spring 2025 and formed Sunset Distributing,
+      then acquired Scout's Los Angeles business in June 2025 (Sourced). Listing them separately
+      would have triple-counted 1 owner in front of Lou.
+    </p>
+
+    <h3 style="font-family: var(--serif); color: var(--navy); font-size: 23px; margin: 26px 0 4px;">The verified wholesaler tier</h3>
+    <table>
+      <thead><tr><th>Wholesaler</th><th>Why it is on the list</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <th>Sunset Distributing</th>
+          <td>The Hand Family Companies subsidiary formed in 2025 from Stone Distributing and Classic Beverage, plus Scout's Los Angeles business (Sourced). Successor to the combined Southern California footprints; Inland Empire coverage confirmed in substance, with the exact county list on its own site partially verified.</td>
+          <td>Verified. The largest independent craft counterparty in this deal.</td>
+        </tr>
+        <tr>
+          <th>Coast Beverage</th>
+          <td>San Diego headquarters; craft beer is a stated portfolio category; documented service to San Diego and Imperial counties and parts of Riverside County (Sourced).</td>
+          <td>Verified. Temecula-specific coverage to be confirmed in the qualification call.</td>
+        </tr>
+        <tr>
+          <th>Guardian Distributors of So Cal</th>
+          <td>Commerce, California; founded 2016; boutique craft focus; published coverage of Los Angeles, Orange, San Bernardino, Riverside, and San Diego counties (Sourced).</td>
+          <td>Verified.</td>
+        </tr>
+        <tr>
+          <th>Western States Beverages</th>
+          <td>Norco-based, self-described artisanal beer, wine, and spirits wholesaler (Sourced, its own site).</td>
+          <td>Flagged only. Small and newer; its California ABC wholesale license is unverified. Never presented as an equivalent bidder.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Mussetter Distributing was screened and removed: its own site puts it in Northern California
+      only (Sourced). A list that survives verification is shorter than a list that does not, and
+      that is the point.
+    </p>
+
+    <h3 style="font-family: var(--serif); color: var(--navy); font-size: 23px; margin: 26px 0 4px;">The 100, by category</h3>
+    <table>
+      <thead><tr><th>Category</th><th class="num">Slots</th><th>Selection criteria</th><th>Decision-maker</th></tr></thead>
+      <tbody>
+        <tr><th>A. Independent craft wholesalers in Riverside County</th><td class="num">15</td><td>California beer wholesaler license; weekly delivery in Riverside and/or San Bernardino County; at least 10 craft suppliers; no AB affiliation; signs of room on the book. The verified tier fills the first 3 slots.</td><td>Owner, GM, craft portfolio manager</td></tr>
+        <tr><th>B. Non-AB large houses with a craft desk</th><td class="num">5</td><td>Riverside County in territory; a separate craft or specialty team; a named manager for brands under 2,000 barrels. Criteria only; no name is carried as verified.</td><td>Craft or specialty brand manager</td></tr>
+        <tr><th>C. Adjacent-territory specialists</th><td class="num">10</td><td>San Diego, Orange County, or Las Vegas houses able to extend into Riverside County, or to consolidate Garage's out-of-territory accounts into 1 relationship.</td><td>Owner, VP sales</td></tr>
+        <tr><th>D. Displaced Straub-roster independents</th><td class="num">25</td><td>On Straub's published roster; independent, not AB-owned; complementary styles or categories; roughly 300 to 5,000 barrels through Straub (Hypothesis range).</td><td>Founder or owner</td></tr>
+        <tr><th>E. Temecula Valley on-premise hosts</th><td class="num">25</td><td>License permits beer sales; significant visitor traffic; no local craft on draft. Wineries with restaurants or event venues, resorts, golf. Pechanga Resort Casino is the obvious large venue (exists, Sourced; fit unverified).</td><td>Owner, F&amp;B director</td></tr>
+        <tr><th>F. Riverside County off-premise buyers</th><td class="num">10</td><td>Chain and independent grocery and liquor buyers running a local programme. Proof of demand for wholesaler conversations, not a channel by themselves.</td><td>Category buyer</td></tr>
+        <tr><th>G. Private-label and capacity buyers</th><td class="num">5</td><td>Restaurant groups or venues wanting a house beer at roughly 100 or more barrels a year.</td><td>Owner</td></tr>
+        <tr><th>H. Validators</th><td class="num">5</td><td>California Craft Brewers Association (Sourced, already quoted in PPG's outreach); beverage counsel who have commented on the deal; Visit Temecula Valley; local chambers. Credibility, not a channel.</td><td>Executive director or partner</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      <strong class="navy">Category D has real names, from Straub's own website</strong> (Sourced, November 23, 2026):
+      Brewery X, Bootlegger's Brewery, Left Coast Brewing Co., Delahunt Brewing Co., Four Sons
+      Brewing, Noble Ale Works, Asylum Brewing, La Bodega Brewing, Buzzrock Brewing, SLO Brew, and
+      Mission Brewing, plus cider and non-alcohol names ACE Ciders, Golden State Cider, and Capacity
+      Brewing. Garage's own expanded-territory group is Garage, Brewery X, Bootlegger's, Left Coast,
+      Four Sons, Capacity, and Hurray's Girl Beer. Karl Strauss is also on Straub's roster (Sourced)
+      but is a large established brewer, not a bundle recruit; its own AB One decision is worth
+      watching because it changes Garage's local chessboard either way. Roster presence proves none
+      of these brands is displaced or willing. It proves they are the right doors to knock on.
+    </p>
+
+    <h3 style="font-family: var(--serif); color: var(--navy); font-size: 23px; margin: 26px 0 4px;">The campaign shape</h3>
+    <ol>
+      <li><strong>Now to the working conversation (about 2 weeks).</strong> Ryan calls 20 names from Categories A and B, starting with the verified tier. The ask is their criteria, capacity, and timing for displaced craft volume before the close. No commitment, no naming Garage. This is what makes "PPG is assembling the wholesaler side" a true sentence.</li>
+      <li><strong>After the mandate (weeks 2 to 4).</strong> Garage is named. The 1-page brand sheet goes to the 5 to 8 best fits. The ask is a 45-minute visit to the Murrieta plant, hosted by Lou.</li>
+      <li><strong>In parallel (weeks 2 to 6).</strong> Ryan calls Category D founders with the bundle thesis, on the same performance terms. The ask is a 15-minute call, then their Straub-channel numbers under a confidentiality agreement.</li>
+      <li><strong>Back end (weeks 4 to 10).</strong> Lou personally approaches Category E hosts, with PPG preparing. The ask is 1 free keg and a 30-day trial.</li>
+      <li><strong>Weeks 6 to 10.</strong> Term sheets, compared on contribution after all costs.</li>
+    </ol>
+    <p>
+      Execution discipline, from the sharpest critique in the set: the first wave is 3 to 5 qualified
+      wholesalers, not 100 letters. The 100 is the map, not the mailing list.
+    </p>
+  </section>
+
+  <section id="risks">
+    <div class="sec-head">
+      <span class="sec-n">6</span>
+      <div>
+        <div class="kicker">Risks and honest weaknesses</div>
+        <h2>What the advisors fought about, what we got wrong, and what could still sink this</h2>
+      </div>
+    </div>
+
+    <h3 style="font-family: var(--serif); color: var(--navy); font-size: 22px; margin: 8px 0 8px;">Corrections this process made to our own record</h3>
+    <ul>
+      <li><strong>Karl Strauss did not just arrive.</strong> Our packet said Karl Strauss opened its first Temecula tasting room this year on Winchester Road. Verified truth: Karl Strauss opened in Temecula on November 5, 2013, at 40868 Winchester Road, that very address, and is a 12-year incumbent still operating there (Sourced). Its recent Riverside County expansion was Corona, in October 2024 (Sourced). 1 advisor caught it; 1 repeated our error; the verification sweep settled it. The competitive pressure on Garage is real. The arrival story is dead, and it retires a hook used in PPG's November 23 follow-up to Lou.</li>
+      <li><strong>The wholesaler map was triple-counted.</strong> Stone Distributing and Scout Distribution are inside Sunset Distributing (Sourced). Corrected in section 5.</li>
+      <li><strong>The consent statute points the other way.</strong> Section 25000.9 restrains Garage, the manufacturer, not AB One. Raised by 1 advisor, confirmed and re-directed by the statute text itself.</li>
+      <li><strong>Phantom capacity.</strong> 1 advisor's first pass invented a 6.5-brew week and 3,067 barrels of headroom; another illustrated 12,000 barrels a year. Both withdrew their own numbers under critique. Brewhouse arithmetic is a scheduling illustration. Cellar capacity is unknown, and every capacity figure in this report is fenced accordingly.</li>
+      <li><strong>One-time money was being multiplied.</strong> 1 advisor's critique caught its own 2.4 persistence factor applied to a 1-time co-op allowance. The correction is applied as a rule throughout this report.</li>
+    </ul>
+
+    <h3 style="font-family: var(--serif); color: var(--navy); font-size: 22px; margin: 24px 0 8px;">Where the advisors disagreed</h3>
+    <ul>
+      <li><strong>Expected value: $2,824 vs $3,095 vs $5,852 vs $13,058 to $24,060.</strong> The spread is 2 modeling choices, not 4 views of Garage. The highest figure never applied a probability that Lou signs a mandate; the next ran its fees at the superseded 30% Straub share. Reconciled on an explicit mandate gate and the revised central share, the planning figure is about $2,500, with the mandate-inclusive advisor range at $2,824 to $5,852 (all Hypothesis).</li>
+      <li><strong>Branch probabilities: A at 40% vs 55%.</strong> Reconciled at A 45%, B 40%, C 15%, weighting Garage's expanded-territory status and the trade press expectation that most remaining Straub suppliers will seek other routes.</li>
+      <li><strong>The lead's width.</strong> 3 advisors described the same lead structure at 3 widths, from a bounded diagnostic to the full standby mandate. This report adopts the widest, because it is the only version that prices Branch A honestly instead of assuming it away. The bundle-first advisor's own critique cut its branch probability from 25% to 15%; the bundle is an extension here, not the lead.</li>
+      <li><strong>1 lane worked from a thinner packet.</strong> Perplexity received only 3 of the 5 packet files and used a truncated public copy of <em>Partner or Perish</em>, which it disclosed in its own critique. Its factual corrections were confirmed independently and stand at full weight; its Abraham application is treated as provisional.</li>
+    </ul>
+
+    <h3 style="font-family: var(--serif); color: var(--navy); font-size: 22px; margin: 24px 0 8px;">The legal gates</h3>
+    <p>None of this is legal advice. Each item is a counsel question that gates execution, in the order it bites.</p>
+    <ol>
+      <li><strong>Section 25000.9 consent liability.</strong> Counsel determines whether the AB One structure triggers it, what Garage's Straub agreement requires, and what a reasonable, documented consent process looks like. PPG never recommends withholding or delaying consent to create leverage.</li>
+      <li><strong>PPG's own licensing question.</strong> Whether PPG's compensated distribution-related activities require a license or a specific compliant structure. Until counsel answers, PPG does not take title to beer, receive orders, handle sale proceeds, or perform functions reserved to licensees. Calling the fee a consulting fee does not settle it. This gates the whole engagement.</li>
+      <li><strong>Tied-house law.</strong> California ABC generally prohibits supplier payments or things of value to retailers outside narrow exceptions, and routing a payment through a third party does not cure it (Sourced, ABC guidance). No slotting, no referral fees to accounts, no per-drink bounties. The host programme is built as lawful co-marketing only, counsel-approved before outreach.</li>
+      <li><strong>Garage's existing Straub agreement.</strong> Assignment, termination, compensation, and territory clauses decide what placement rights exist. Consent to the AB One transfer is not the same as a right to appoint a different distributor. PPG has not seen this document. It is the gating document for Branches B and C.</li>
+      <li><strong>Portfolio coordination.</strong> The bundle involves competitors: separate mandates, separate agreements, no exchange of pricing or customer information between suppliers, counsel supervising. PPG is paid by the brands only, disclosed to the wholesaler.</li>
+    </ol>
+
+    <h3 style="font-family: var(--serif); color: var(--navy); font-size: 22px; margin: 24px 0 8px;">The standing weaknesses</h3>
+    <ul>
+      <li><strong>The volume is from 2022.</strong> Every fee scales with a 4-year-old figure held flat by assumption. A materially lower current volume shrinks everything proportionally.</li>
+      <li><strong>Price and margin are borrowed.</strong> The $260 a barrel and 32% margin are craft estimates carried from the Left Coast model, not Garage's numbers. A taproom-heavy brewery's distributed-barrel economics can sit outside that band in either direction.</li>
+      <li><strong>Lou is the counterfactual.</strong> He has controlled his own distribution before and may do it again. The strongest objection in the room is his own 2015 sentence, and the honest answer is the one in the mandate: he owes nothing on anything he places or delivers himself, and that is written in.</li>
+      <li><strong>Founder time is the real budget.</strong> At the low end of the Straub share, a standalone placement pays $6,950 on success against weeks of work. The thesis caps pre-mandate time hard and lets the callback facts decide whether the full build is warranted.</li>
+      <li><strong>Nothing is agreed.</strong> No mandate, no baseline, no split in writing, no wholesaler contacted on Garage's behalf. This report is a map of questions with prices attached, which is exactly what it should be before the first working conversation.</li>
+    </ul>
+  </section>
+
+  <section id="path">
+    <div class="sec-head">
+      <span class="sec-n">7</span>
+      <div>
+        <div class="kicker">The mandate path</div>
+        <h2>What happens next, in order</h2>
+      </div>
+    </div>
+
+    <ol>
+      <li><strong>The callback (tomorrow).</strong> Discovery only. The 5 facts below. No terms quoted, no percentage named, no wholesaler promised. The 1 ask at the end: a 30-minute working conversation, with Sharon in it if she is in the decision.</li>
+      <li><strong>The working conversation.</strong> Lou's objectives first, PPG's read of the branches second, the Prepared Garage mandate third: scope, the counterfactual fee formula, the attribution factor, the standby clause, a 90-day origination window, monthly reconciliation. If the facts say AB One's path is fine as offered, PPG says so and earns $0 with the relationship intact.</li>
+      <li><strong>The baseline (weeks 0 to 2 after signing).</strong> Trailing-12-month Straub-channel barrels, dollars, and accounts become the written baseline. Counsel clears the section 6 gates in parallel.</li>
+      <li><strong>The bench and the term sheets (weeks 2 to 10).</strong> The campaign in section 5. Garage is named only now.</li>
+      <li><strong>The bundle extension (weeks 2 to 6, in parallel).</strong> Category D founders, separate mandates, Garage never contingent.</li>
+      <li><strong>Measurement (from first depletion).</strong> Monthly reconciliation against the baseline. PPG is paid on collected, attributable increment only. If there is no increment, there is no fee, and that sentence is in the agreement.</li>
+    </ol>
+
+    <h3 style="font-family: var(--serif); color: var(--navy); font-size: 22px; margin: 28px 0 8px;">The 5 facts the callback must establish</h3>
+    <ol>
+      <li><strong>The channel split, in barrels and dollars.</strong> Trailing 12 months: taproom, Straub, self-handled, any other wholesaler, with contribution after costs. This 1 answer moves the year 1 placement fee between $6,950 and $31,276 on base inputs (Hypothesis math on Sourced volume) and decides whether PPG's posture is placement-led or bundle-led.</li>
+      <li><strong>What Straub and AB One have told Garage in writing, and what the current agreement allows.</strong> Selection status, any offer, decision dates, and the assignment, termination, compensation, and territory clauses. This decides which branch we are in.</li>
+      <li><strong>Lou's counterfactual.</strong> If PPG does nothing, what does he do, with whom, on what terms, and what does he want most: profit, control, freshness, growth, or less burden? This sets the baseline the fee is measured against.</li>
+      <li><strong>Current volume and real operating capacity.</strong> Current barrels replacing the 2022 figure; brews a week; fermenter and cellar headroom; trucks, cold storage, and licenses as they exist today. This decides whether Rank 5 is real and whether self-delivery is a genuine fallback.</li>
+      <li><strong>Who decides, and whether measurement is welcome.</strong> Which entity signs; Sharon's role and signing authority; and whether Lou will share the records needed to agree the baseline and reconcile a performance fee. Close 6th, if the moment allows: whether 26015 Jefferson Ave is owned or leased, and on what term.</li>
+    </ol>
+  </section>
+
+  <footer class="footer">
+    <span>Preeminent Partners Group · The Garage Brewing deal thesis · Built November 23, 2026</span>
+    <span>Internal planning only. No figure in this report is to be quoted to the prospect. No mandate is signed and no fee terms are agreed.</span>
+    <span>Method: 4 independent advisor passes on the full packet, self-critique rounds, a sourced fact sweep, and a primary-source verification sweep. Companion files: the Garage deal model (Google Sheets), the interactive planning dashboard, and the thesis synthesis.</span>
+  </footer>
+
+</div>
+</body>
+</html>
