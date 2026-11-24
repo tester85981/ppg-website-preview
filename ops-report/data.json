@@ -1,41 +1,41 @@
 {
-  "date": "Monday, November 23, 2026",
-  "generated_at": "2026-11-23 04:44 PM CT",
-  "state_of_play": "2 prospects have replied and both asked for callbacks by phone. 7 decision-maker contacts are verified against a target of 35, and verified contacts are the number everything else waits on.",
+  "date": "Tuesday, November 24, 2026",
+  "generated_at": "2026-11-24 08:58 AM CT",
+  "state_of_play": "3 prospects have replied and both asked for callbacks by phone. 7 decision-maker contacts are verified against a target of 35, and verified contacts are the number everything else waits on.",
   "numbers": {
-    "emails_sent": 10,
+    "emails_sent": 16,
     "first_touches": {
-      "value": 7,
+      "value": 13,
       "target": 40,
-      "pace": "33 to go, needs about 6.1 a week for the 38 days left"
+      "pace": "27 to go, needs about 5.1 a week for the 37 days left"
     },
-    "replies": 2,
+    "replies": 3,
     "conversations": {
-      "value": 2,
+      "value": 3,
       "target": 8,
-      "pace": "6 to go, needs about 1.1 a week for the 38 days left"
+      "pace": "5 to go, needs about 0.95 a week for the 37 days left"
     },
     "booked_calls": {
       "value": 0,
       "target": 5,
-      "pace": "5 to go, needs about 0.92 a week for the 38 days left"
+      "pace": "5 to go, needs about 0.95 a week for the 37 days left"
     },
     "signed_pilots": {
       "value": 0,
       "target": 2,
-      "pace": "2 to go, needs about 0.37 a week for the 38 days left"
+      "pace": "2 to go, needs about 0.38 a week for the 37 days left"
     },
     "verified_contacts": {
       "value": 7,
       "target": 35,
-      "pace": "28 to go, needs about 5.2 a week for the 38 days left"
+      "pace": "28 to go, needs about 5.3 a week for the 37 days left"
     }
   },
   "workstreams": [
     {
       "name": "Email outreach to breweries",
       "status": "Moving",
-      "line": "10 emails are out and verified in the Sent folder (7 first touches, 3 follow-ups). Next: Tuesday Nov 24: the five approved sends (Temblor, Sprecher, Cantrip, Climbing Kites, Plift) plus the first group of the approved 15-draft batch, each with its full pre-send check."
+      "line": "16 emails are out and verified in the Sent folder (13 first touches, 3 follow-ups). Next: Tuesday: no Monday, Wednesday, or Friday weekly loop is due."
     },
     {
       "name": "Prospect callbacks",
@@ -45,7 +45,7 @@
     {
       "name": "Verifying decision-maker contacts",
       "status": "Moving",
-      "line": "7 of 35 contacts verified. Verify the next 10 decision-maker contacts, so a new send batch is ready before the approved batches run out around Nov 30. Board task started, assigned to Carly, checked Dec 1."
+      "line": "7 of 35 contacts verified. Convert the Tommy and Lou callbacks into booked calls and logged outcomes. The calls are Ryan's; Carly logs each outcome the same day and updates the board in the same pass."
     },
     {
       "name": "Jay Abraham course transcription",
@@ -60,84 +60,14 @@
     {
       "name": "Top target list",
       "status": "Stuck",
-      "line": "The goal of 10 top targets, still 5 of 10, unchanged since Nov 17."
+      "line": "The goal of 10 top targets, still 5 of 10, unchanged since Nov 17; Monday's signal scan found no new transfer announcements, so the gap stays worked by the watch, not by re-checking the same list."
     }
   ],
-  "needs_ryan": [
-    {
-      "item": "Jason Tarasek replied on the Minnesota hemp counsel question: no fixed fee, hourly work through a Denver associate",
-      "waiting_days": 0,
-      "waiting_since": "today",
-      "blocking": true,
-      "smallest_move": "Pick 1 in chat: accept hourly work through his firm, or have Carly find a Minnesota counsel who quotes a fixed fee first."
-    },
-    {
-      "item": "Upload the four OKR/KPI Udemy courses to Drive",
-      "waiting_days": 12,
-      "waiting_since": "Nov 11",
-      "blocking": false,
-      "smallest_move": "Upload the 4 course files to Drive. About 10 minutes at your computer."
-    },
-    {
-      "item": "Your two Firm-page facts, or decide to show none",
-      "waiting_days": 12,
-      "waiting_since": "Nov 11",
-      "blocking": false,
-      "smallest_move": "Send the 2 facts in chat, or say show none. 2 minutes."
-    },
-    {
-      "item": "Confirm the launch operating facts from the copywriter audit (Section 12)",
-      "waiting_days": 11,
-      "waiting_since": "Nov 12",
-      "blocking": false,
-      "smallest_move": "Open the audit doc and confirm the Section 12 facts. About 5 minutes."
-    },
-    {
-      "item": "Approve adoption of the Multi-Builder Rotation Protocol (draft amended Nov 13)",
-      "waiting_days": 10,
-      "waiting_since": "Nov 13",
-      "blocking": false,
-      "smallest_move": "Read the draft and say adopt, adopt with changes, or reject. 1 word after a short read."
-    },
-    {
-      "item": "Decide PPG Branding Blueprint founder inputs (4 items)",
-      "waiting_days": 10,
-      "waiting_since": "Nov 13",
-      "blocking": false,
-      "smallest_move": "Answer the 4 founder input items in the doc."
-    },
-    {
-      "item": "Approve corrected North Star pipeline numbers",
-      "waiting_days": 0,
-      "waiting_since": "today",
-      "blocking": false,
-      "smallest_move": "Say agree in chat and the corrected counts stand. 2 minutes."
-    },
-    {
-      "item": "Similarweb, Railway and Perplexity charges failed: update the cards or let the tools lapse",
-      "waiting_days": 0,
-      "waiting_since": "today",
-      "blocking": false,
-      "smallest_move": "1 word each in chat: update the card, or let it lapse."
-    }
-  ],
-  "one_ask": "The Multi-Builder ruling.",
-  "top_moves": [
-    {
-      "move": "The first 15 minutes: the three small account steps as one block.",
-      "first_step": "Open the tester85981 GitHub billing page."
-    },
-    {
-      "move": "Call Tommy Hadjis back (Left Coast, PPG).",
-      "first_step": "Open the Tommy call prep file, under 5 minutes, before dialing."
-    },
-    {
-      "move": "Rule on the Multi-Builder Rotation Protocol draft.",
-      "first_step": "Open the draft, under 2 minutes."
-    }
-  ],
+  "needs_ryan": [],
+  "one_ask": "",
+  "top_moves": [],
   "systems": {
     "status": "healthy",
-    "line": "All watched systems are healthy, last checked 4:43 PM CT. A restart wiped the timers earlier today; all of them were restored automatically and verified. The course transcription download is at 20 of 21 files and still moving."
+    "line": "All watched systems are healthy, last checked 8:57 AM CT. A restart wiped the timers earlier today; all of them were restored automatically and verified."
   }
 }
