@@ -130,28 +130,34 @@ fetch("graph.json").then(r => r.json()).then(data => {
 });
 
 function visible(n) { return !hiddenLabels.has(n.labels[0] || "Node"); }
+let simFrames = 0;
 function simulate() {
   const vis = nodes.filter(visible);
-  for (let step = 0; step < 2; step++) {
-    for (let i = 0; i < vis.length; i++) for (let j = i + 1; j < vis.length; j++) {
-      const a = vis[i], b = vis[j];
-      let dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy || 1;
-      let f = 2600 / d2; a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f;
-    }
-    edges.forEach(e => {
-      if (!visible(e.a) || !visible(e.b)) return;
-      let dx = e.b.x - e.a.x, dy = e.b.y - e.a.y, d = Math.hypot(dx, dy) || 1;
-      let f = (d - 130) * 0.012; e.a.vx += dx / d * f * d * 0.02; e.a.vy += dy / d * f * d * 0.02;
-      e.b.vx -= dx / d * f * d * 0.02; e.b.vy -= dy / d * f * d * 0.02;
-    });
-    vis.forEach(n => {
-      if (n === dragNode) return;
-      n.vx *= 0.82; n.vy *= 0.82; n.x += n.vx; n.y += n.vy;
-    });
+  for (let i = 0; i < vis.length; i++) for (let j = i + 1; j < vis.length; j++) {
+    const a = vis[i], b = vis[j];
+    let dx = a.x - b.x, dy = a.y - b.y;
+    let d = Math.hypot(dx, dy) || 1;
+    let rep = Math.min(1800 / (d * d), 2.5) * 10;
+    a.vx += dx / d * rep; a.vy += dy / d * rep;
+    b.vx -= dx / d * rep; b.vy -= dy / d * rep;
   }
-  draw();
-  if (!simulate.done) requestAnimationFrame(simulate);
-  clearTimeout(simulate.t); simulate.t = setTimeout(() => { simulate.done = true; }, 6000);
+  edges.forEach(e => {
+    if (!visible(e.a) || !visible(e.b)) return;
+    let dx = e.b.x - e.a.x, dy = e.b.y - e.a.y, d = Math.hypot(dx, dy) || 1;
+    let f = (d - 120) * 0.015;
+    e.a.vx += dx / d * f; e.a.vy += dy / d * f;
+    e.b.vx -= dx / d * f; e.b.vy -= dy / d * f;
+  });
+  vis.forEach(n => {
+    if (n === dragNode) return;
+    n.vx = Math.max(-8, Math.min(8, n.vx * 0.85));
+    n.vy = Math.max(-8, Math.min(8, n.vy * 0.85));
+    n.x += n.vx; n.y += n.vy;
+  });
+  simFrames++;
+  if (simFrames % 60 === 0) fit(); else draw();
+  if (simFrames < 300) requestAnimationFrame(simulate);
+  else fit();
 }
 function toScreen(n) { return { x: (n.x * scale + ox), y: (n.y * scale + oy) }; }
 function draw() {
