@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PPG Knowledge Graph — Explorer</title>
+<style>
+  :root {
+    --paper: #f7f3ec;
+    --ink: #1c2733;
+    --navy: #16283f;
+    --muted: #6b7684;
+    --line: #ddd5c6;
+    --panel: #fffdf8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--paper); color: var(--ink);
+    font-family: "Libre Franklin", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  header { padding: 18px 24px 10px; border-bottom: 1px solid var(--line); }
+  header h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 600;
+    font-size: 26px; margin: 0 0 4px; color: var(--navy); letter-spacing: .2px; }
+  header p { margin: 0; color: var(--muted); font-size: 13px; }
+  #bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+    padding: 12px 24px; border-bottom: 1px solid var(--line); }
+  #search { flex: 0 1 320px; padding: 8px 12px; font-size: 14px;
+    border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--ink); }
+  button { padding: 8px 14px; font-size: 13px; border: 1px solid var(--navy);
+    background: var(--navy); color: #fff; border-radius: 6px; cursor: pointer; }
+  button.ghost { background: transparent; color: var(--navy); }
+  #legend { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 10px 24px;
+    border-bottom: 1px solid var(--line); font-size: 12.5px; }
+  #legend label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  #wrap { display: flex; height: calc(100% - 196px); min-height: 420px; }
+  #stage { flex: 1; position: relative; }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; }
+  canvas:active { cursor: grabbing; }
+  #details { width: 320px; max-width: 40vw; border-left: 1px solid var(--line);
+    background: var(--panel); padding: 16px 18px; overflow-y: auto; font-size: 13.5px; }
+  #details h2 { font-family: Georgia, serif; font-size: 19px; margin: 0 0 2px; color: var(--navy); }
+  #details .lab { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+  #details table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+  #details td { padding: 5px 6px 5px 0; vertical-align: top; border-top: 1px solid var(--line); word-break: break-word; }
+  #details td.k { color: var(--muted); width: 38%; }
+  #details .rel { margin-top: 12px; }
+  #details .rel div { padding: 4px 0; border-top: 1px solid var(--line); }
+  .hint { color: var(--muted); font-size: 12.5px; padding: 8px 24px 14px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>PPG Knowledge Graph</h1>
+  <p id="stamp">Loading the graph…</p>
+</header>
+<div id="bar">
+  <input id="search" type="search" placeholder="Search by name (company, person, thesis, concept…)">
+  <button id="fit" class="ghost" type="button">Fit to screen</button>
+  <button id="reset" class="ghost" type="button">Show everything</button>
+</div>
+<div id="legend"></div>
+<div id="wrap">
+  <div id="stage"><canvas id="cv"></canvas></div>
+  <aside id="details">
+    <h2>Nothing selected</h2>
+    <p class="lab">How to look around</p>
+    <p>Drag to pan, scroll to zoom, drag a dot to move it. Click any dot to see what it is and what it connects to. Use the search box to find a company, person, or idea, and the label toggles above to show or hide whole kinds of things.</p>
+  </aside>
+</div>
+<p class="hint">This is a read-only snapshot of the live graph database, exported when this page was built. Ask Carly to refresh it any time and she will re-export the current graph.</p>
+
+<script>
+const COLORS = {
+  Company: "#b4552d", Person: "#2d6db4", Thesis: "#16283f", Hypothesis: "#7a4fa3",
+  Wholesaler: "#2e7d5b", Distributor: "#2e7d5b", Territory: "#8a6d3b", Signal: "#c0392b",
+  Course: "#4a6741", Lesson: "#6d8f5f", Concept: "#96762f", Skill: "#3f7f8c",
+  Project: "#555f6e", Group: "#a05a7a", SyncDomain: "#76828f"
+};
+const FALLBACK = ["#7a6a53", "#5b7a99", "#8c5b70", "#6e7f4f", "#94744a"];
+let fallbackIdx = 0;
+function colorFor(label) {
+  if (COLORS[label]) return COLORS[label];
+  COLORS[label] = FALLBACK[fallbackIdx++ % FALLBACK.length];
+  return COLORS[label];
+}
+function displayName(n) {
+  const p = n.props || {};
+  return p.name || p.title || p.label || p.company || p.id ||
+    (n.labels[0] || "Node") + " " + String(n.id).slice(-4);
+}
+
+let nodes = [], edges = [], byId = new Map();
+let hiddenLabels = new Set();
+let selected = null, highlight = null;
+const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+let W = 0, H = 0, scale = 1, ox = 0, oy = 0;
+let dragNode = null, dragPan = null, mouse = {x: 0, y: 0};
+
+function resize() {
+  const r = cv.parentElement.getBoundingClientRect();
+  W = cv.width = r.width * devicePixelRatio; H = cv.height = r.height * devicePixelRatio;
+}
+addEventListener("resize", () => { resize(); draw(); });
+
+fetch("graph.json").then(r => r.json()).then(data => {
+  nodes = data.nodes; edges = data.edges;
+  nodes.forEach((n, i) => {
+    n.x = Math.cos(i * 2.39996) * (60 + (i % 89) * 6);
+    n.y = Math.sin(i * 2.39996) * (60 + (i % 89) * 6);
+    n.vx = 0; n.vy = 0; n.name = displayName(n); byId.set(n.id, n);
+  });
+  edges.forEach(e => { e.a = byId.get(e.src); e.b = byId.get(e.dst); });
+  edges = edges.filter(e => e.a && e.b);
+  const counts = {};
+  nodes.forEach(n => counts[n.labels[0] || "Node"] = (counts[n.labels[0] || "Node"] || 0) + 1);
+  document.getElementById("stamp").textContent =
+    nodes.length + " things in the graph, " + edges.length + " connections between them. " +
+    "Snapshot exported " + new Date().toLocaleString() + ".";
+  const legend = document.getElementById("legend");
+  Object.keys(counts).sort().forEach(lab => {
+    const el = document.createElement("label");
+    el.innerHTML = '<input type="checkbox" checked> <span class="dot" style="background:' +
+      colorFor(lab) + '"></span> ' + lab + " (" + counts[lab] + ")";
+    el.querySelector("input").addEventListener("change", ev => {
+      if (ev.target.checked) hiddenLabels.delete(lab); else hiddenLabels.add(lab);
+      draw();
+    });
+    legend.appendChild(el);
+  });
+  resize(); fit(); simulate();
+});
+
+function visible(n) { return !hiddenLabels.has(n.labels[0] || "Node"); }
+function simulate() {
+  const vis = nodes.filter(visible);
+  for (let step = 0; step < 2; step++) {
+    for (let i = 0; i < vis.length; i++) for (let j = i + 1; j < vis.length; j++) {
+      const a = vis[i], b = vis[j];
+      let dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy || 1;
+      let f = 2600 / d2; a.vx += dx * f; a.vy += dy * f; b.vx -= dx * f; b.vy -= dy * f;
+    }
+    edges.forEach(e => {
+      if (!visible(e.a) || !visible(e.b)) return;
+      let dx = e.b.x - e.a.x, dy = e.b.y - e.a.y, d = Math.hypot(dx, dy) || 1;
+      let f = (d - 130) * 0.012; e.a.vx += dx / d * f * d * 0.02; e.a.vy += dy / d * f * d * 0.02;
+      e.b.vx -= dx / d * f * d * 0.02; e.b.vy -= dy / d * f * d * 0.02;
+    });
+    vis.forEach(n => {
+      if (n === dragNode) return;
+      n.vx *= 0.82; n.vy *= 0.82; n.x += n.vx; n.y += n.vy;
+    });
+  }
+  draw();
+  if (!simulate.done) requestAnimationFrame(simulate);
+  clearTimeout(simulate.t); simulate.t = setTimeout(() => { simulate.done = true; }, 6000);
+}
+function toScreen(n) { return { x: (n.x * scale + ox), y: (n.y * scale + oy) }; }
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  ctx.lineWidth = 1 * devicePixelRatio; ctx.strokeStyle = "rgba(28,39,51,.16)";
+  edges.forEach(e => {
+    if (!visible(e.a) || !visible(e.b)) return;
+    const a = toScreen(e.a), b = toScreen(e.b);
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+  });
+  nodes.forEach(n => {
+    if (!visible(n)) return;
+    const p = toScreen(n), r = (n === selected ? 10 : 7) * devicePixelRatio;
+    ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, 7);
+    ctx.fillStyle = colorFor(n.labels[0] || "Node"); ctx.fill();
+    if (n === selected || n === highlight) {
+      ctx.lineWidth = 2.5 * devicePixelRatio; ctx.strokeStyle = "#16283f"; ctx.stroke();
+    }
+    if (scale > 0.55 || n === selected || n === highlight) {
+      ctx.font = (11 * devicePixelRatio) + "px sans-serif";
+      ctx.fillStyle = "#1c2733"; ctx.textAlign = "center";
+      ctx.fillText(n.name.slice(0, 34), p.x, p.y - r - 3 * devicePixelRatio);
+    }
+  });
+}
+function fit() {
+  const vis = nodes.filter(visible); if (!vis.length) return;
+  let minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9;
+  vis.forEach(n => { minX = Math.min(minX, n.x); maxX = Math.max(maxX, n.x);
+    minY = Math.min(minY, n.y); maxY = Math.max(maxY, n.y); });
+  const w = (maxX - minX) || 1, h = (maxY - minY) || 1;
+  scale = Math.min(W / (w + 160), H / (h + 160));
+  ox = W / 2 - (minX + w / 2) * scale; oy = H / 2 - (minY + h / 2) * scale;
+  draw();
+}
+function pick(mx, my) {
+  let best = null, bd = 18 * devicePixelRatio;
+  nodes.forEach(n => {
+    if (!visible(n)) return;
+    const p = toScreen(n), d = Math.hypot(p.x - mx, p.y - my);
+    if (d < bd) { bd = d; best = n; }
+  });
+  return best;
+}
+function showDetails(n) {
+  const d = document.getElementById("details");
+  if (!n) return;
+  let rows = Object.entries(n.props || {}).map(([k, v]) =>
+    "<tr><td class='k'>" + k + "</td><td>" + String(v).replace(/</g, "&lt;") + "</td></tr>").join("");
+  let rels = [];
+  edges.forEach(e => {
+    if (e.a === n) rels.push("<div>→ " + e.type + " → <b>" + e.b.name + "</b></div>");
+    if (e.b === n) rels.push("<div>← " + e.type + " ← <b>" + e.a.name + "</b></div>");
+  });
+  d.innerHTML = "<h2>" + n.name.replace(/</g, "&lt;") + "</h2><p class='lab'>" +
+    n.labels.join(", ") + "</p>" + (rows ? "<table>" + rows + "</table>" : "") +
+    (rels.length ? "<div class='rel'><p class='lab'>Connections (" + rels.length + ")</p>" + rels.join("") + "</div>" : "");
+}
+cv.addEventListener("pointerdown", ev => {
+  const r = cv.getBoundingClientRect();
+  mouse = { x: (ev.clientX - r.left) * devicePixelRatio, y: (ev.clientY - r.top) * devicePixelRatio };
+  dragNode = pick(mouse.x, mouse.y);
+  if (dragNode) { selected = dragNode; showDetails(dragNode); }
+  else dragPan = { x: mouse.x, y: mouse.y, ox, oy };
+  cv.setPointerCapture(ev.pointerId); draw();
+});
+cv.addEventListener("pointermove", ev => {
+  const r = cv.getBoundingClientRect();
+  const m = { x: (ev.clientX - r.left) * devicePixelRatio, y: (ev.clientY - r.top) * devicePixelRatio };
+  if (dragNode) { dragNode.x = (m.x - ox) / scale; dragNode.y = (m.y - oy) / scale; dragNode.vx = dragNode.vy = 0; }
+  else if (dragPan) { ox = dragPan.ox + (m.x - dragPan.x); oy = dragPan.oy + (m.y - dragPan.y); }
+  else highlight = pick(m.x, m.y);
+  mouse = m; draw();
+});
+cv.addEventListener("pointerup", () => { dragNode = null; dragPan = null; });
+cv.addEventListener("wheel", ev => {
+  ev.preventDefault();
+  const f = ev.deltaY < 0 ? 1.12 : 0.89, ns = Math.max(0.05, Math.min(4, scale * f));
+  ox = mouse.x - (mouse.x - ox) * (ns / scale); oy = mouse.y - (mouse.y - oy) * (ns / scale);
+  scale = ns; draw();
+}, { passive: false });
+document.getElementById("fit").addEventListener("click", fit);
+document.getElementById("reset").addEventListener("click", () => {
+  hiddenLabels.clear();
+  document.querySelectorAll("#legend input").forEach(i => i.checked = true);
+  document.getElementById("search").value = ""; selected = null; fit();
+});
+document.getElementById("search").addEventListener("input", ev => {
+  const q = ev.target.value.trim().toLowerCase();
+  if (!q) { highlight = null; draw(); return; }
+  const hit = nodes.find(n => visible(n) && n.name.toLowerCase().includes(q));
+  if (hit) {
+    highlight = hit; selected = hit; showDetails(hit);
+    ox = W / 2 - hit.x * scale; oy = H / 2 - hit.y * scale; draw();
+  }
+});
+</script>
+</body>
+</html>
