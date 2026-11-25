@@ -1,41 +1,41 @@
 {
-  "date": "Tuesday, November 24, 2026",
-  "generated_at": "2026-11-24 08:58 AM CT",
-  "state_of_play": "3 prospects have replied and both asked for callbacks by phone. 7 decision-maker contacts are verified against a target of 35, and verified contacts are the number everything else waits on.",
+  "date": "Wednesday, November 25, 2026",
+  "generated_at": "2026-11-25 08:58 AM CT",
+  "state_of_play": "5 prospects have replied and both asked for callbacks by phone. 15 decision-maker contacts are verified against a target of 35, and verified contacts are the number everything else waits on.",
   "numbers": {
-    "emails_sent": 16,
+    "emails_sent": 26,
     "first_touches": {
-      "value": 13,
+      "value": 23,
       "target": 40,
-      "pace": "27 to go, needs about 5.1 a week for the 37 days left"
+      "pace": "17 to go, needs about 3.3 a week for the 36 days left"
     },
-    "replies": 3,
+    "replies": 5,
     "conversations": {
       "value": 3,
       "target": 8,
-      "pace": "5 to go, needs about 0.95 a week for the 37 days left"
+      "pace": "5 to go, needs about 0.97 a week for the 36 days left"
     },
     "booked_calls": {
       "value": 0,
       "target": 5,
-      "pace": "5 to go, needs about 0.95 a week for the 37 days left"
+      "pace": "5 to go, needs about 0.97 a week for the 36 days left"
     },
     "signed_pilots": {
       "value": 0,
       "target": 2,
-      "pace": "2 to go, needs about 0.38 a week for the 37 days left"
+      "pace": "2 to go, needs about 0.39 a week for the 36 days left"
     },
     "verified_contacts": {
-      "value": 7,
+      "value": 15,
       "target": 35,
-      "pace": "28 to go, needs about 5.3 a week for the 37 days left"
+      "pace": "20 to go, needs about 3.9 a week for the 36 days left"
     }
   },
   "workstreams": [
     {
       "name": "Email outreach to breweries",
       "status": "Moving",
-      "line": "16 emails are out and verified in the Sent folder (13 first touches, 3 follow-ups). Next: Tuesday: no Monday, Wednesday, or Friday weekly loop is due."
+      "line": "26 emails are out and verified in the Sent folder (23 first touches, 3 follow-ups). The next approved batch goes out on its scheduled morning, each send with its full pre-send check."
     },
     {
       "name": "Prospect callbacks",
@@ -45,7 +45,7 @@
     {
       "name": "Verifying decision-maker contacts",
       "status": "Moving",
-      "line": "7 of 35 contacts verified. Convert the Tommy and Lou callbacks into booked calls and logged outcomes. The calls are Ryan's; Carly logs each outcome the same day and updates the board in the same pass."
+      "line": "15 of 35 contacts verified. Land Ryan's pending prospect moves and log every outcome the same day: Stephen's revised reply (draft ready, wording valid today only), the Adam follow-up check at 9 AM, and the still-unreported Tommy and Lou callback outcomes from Nov 24."
     },
     {
       "name": "Jay Abraham course transcription",
@@ -60,7 +60,7 @@
     {
       "name": "Top target list",
       "status": "Stuck",
-      "line": "The goal of 10 top targets, still 5 of 10, unchanged since Nov 17; Monday's signal scan found no new transfer announcements, so the gap stays worked by the watch, not by re-checking the same list."
+      "line": "The goal of 10 top targets, still 5 of 10 from the first group."
     }
   ],
   "needs_ryan": [],
@@ -68,6 +68,6 @@
   "top_moves": [],
   "systems": {
     "status": "healthy",
-    "line": "All watched systems are healthy, last checked 8:57 AM CT. A restart wiped the timers earlier today; all of them were restored automatically and verified."
+    "line": "All watched systems are healthy, last checked 8:49 AM CT. A restart wiped the timers earlier today; all of them were restored automatically and verified."
   }
 }
