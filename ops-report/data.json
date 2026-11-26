@@ -1,41 +1,41 @@
 {
-  "date": "Wednesday, November 25, 2026",
-  "generated_at": "2026-11-25 08:58 AM CT",
+  "date": "Thursday, November 26, 2026",
+  "generated_at": "2026-11-26 08:58 AM CT",
   "state_of_play": "5 prospects have replied and both asked for callbacks by phone. 15 decision-maker contacts are verified against a target of 35, and verified contacts are the number everything else waits on.",
   "numbers": {
-    "emails_sent": 26,
+    "emails_sent": 31,
     "first_touches": {
-      "value": 23,
+      "value": 28,
       "target": 40,
-      "pace": "17 to go, needs about 3.3 a week for the 36 days left"
+      "pace": "12 to go, needs about 2.4 a week for the 35 days left"
     },
     "replies": 5,
     "conversations": {
       "value": 3,
       "target": 8,
-      "pace": "5 to go, needs about 0.97 a week for the 36 days left"
+      "pace": "5 to go, needs about 1.0 a week for the 35 days left"
     },
     "booked_calls": {
       "value": 0,
       "target": 5,
-      "pace": "5 to go, needs about 0.97 a week for the 36 days left"
+      "pace": "5 to go, needs about 1.0 a week for the 35 days left"
     },
     "signed_pilots": {
       "value": 0,
       "target": 2,
-      "pace": "2 to go, needs about 0.39 a week for the 36 days left"
+      "pace": "2 to go, needs about 0.40 a week for the 35 days left"
     },
     "verified_contacts": {
       "value": 15,
       "target": 35,
-      "pace": "20 to go, needs about 3.9 a week for the 36 days left"
+      "pace": "20 to go, needs about 4.0 a week for the 35 days left"
     }
   },
   "workstreams": [
     {
       "name": "Email outreach to breweries",
       "status": "Moving",
-      "line": "26 emails are out and verified in the Sent folder (23 first touches, 3 follow-ups). The next approved batch goes out on its scheduled morning, each send with its full pre-send check."
+      "line": "31 emails are out and verified in the Sent folder (28 first touches, 3 follow-ups). The next approved batch goes out on its scheduled morning, each send with its full pre-send check."
     },
     {
       "name": "Prospect callbacks",
@@ -67,7 +67,7 @@
   "one_ask": "",
   "top_moves": [],
   "systems": {
-    "status": "healthy",
-    "line": "All watched systems are healthy, last checked 8:49 AM CT. A restart wiped the timers earlier today; all of them were restored automatically and verified."
+    "status": "attention",
+    "line": "Something needs attention: Morning bookkeeping sync has not run today"
   }
 }
