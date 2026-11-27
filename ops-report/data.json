@@ -1,34 +1,34 @@
 {
-  "date": "Thursday, November 26, 2026",
-  "generated_at": "2026-11-26 08:58 AM CT",
+  "date": "Friday, November 27, 2026",
+  "generated_at": "2026-11-27 08:58 AM CT",
   "state_of_play": "5 prospects have replied and both asked for callbacks by phone. 15 decision-maker contacts are verified against a target of 35, and verified contacts are the number everything else waits on.",
   "numbers": {
     "emails_sent": 31,
     "first_touches": {
       "value": 28,
       "target": 40,
-      "pace": "12 to go, needs about 2.4 a week for the 35 days left"
+      "pace": "12 to go, needs about 2.5 a week for the 34 days left"
     },
     "replies": 5,
     "conversations": {
       "value": 3,
       "target": 8,
-      "pace": "5 to go, needs about 1.0 a week for the 35 days left"
+      "pace": "5 to go, needs about 1.0 a week for the 34 days left"
     },
     "booked_calls": {
       "value": 0,
       "target": 5,
-      "pace": "5 to go, needs about 1.0 a week for the 35 days left"
+      "pace": "5 to go, needs about 1.0 a week for the 34 days left"
     },
     "signed_pilots": {
       "value": 0,
       "target": 2,
-      "pace": "2 to go, needs about 0.40 a week for the 35 days left"
+      "pace": "2 to go, needs about 0.41 a week for the 34 days left"
     },
     "verified_contacts": {
       "value": 15,
       "target": 35,
-      "pace": "20 to go, needs about 4.0 a week for the 35 days left"
+      "pace": "20 to go, needs about 4.1 a week for the 34 days left"
     }
   },
   "workstreams": [
